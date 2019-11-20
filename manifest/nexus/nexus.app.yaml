@@ -16,10 +16,10 @@ spec:
           resources:
             limits:
               memory: "4Gi"
-              cpu: "1000m"
+              cpu: "4000m"
             requests:
               memory: "2Gi"
-              cpu: "500m"
+              cpu: "100m"
           ports:
             - containerPort: 8081
           volumeMounts:
