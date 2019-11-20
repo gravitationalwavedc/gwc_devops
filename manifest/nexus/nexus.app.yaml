@@ -26,8 +26,7 @@ spec:
             - name: nexus-data
               mountPath: /nexus-data
       volumes:
-      - name: vol_pod_nexus_1
-        # This OpenStack volume must already exist.
-        cinder:
-          volumeID: vol_pod_nexus_1
+        - name: nexus-data
+          persistentVolumeClaim:
+            claimName: nfs-pvc-nexus
       restartPolicy: Always
