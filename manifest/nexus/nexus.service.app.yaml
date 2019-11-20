@@ -5,10 +5,17 @@ kind: Service
 metadata:
   namespace: devops-tools
   name: nexus-web
+  labels:
+    app: nexus-server
 spec:
   type: NodePort
   ports:
   - name: webui
-    port: 80
-    targetPort: 80
+    port: 8081
+    targetPort: 8081
     nodePort: 30100
+  selector:
+    app: nexus-server
+  sessionAffinity: None
+status:
+  loadBalancer: {}
