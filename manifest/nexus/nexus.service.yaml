@@ -1,0 +1,14 @@
+---
+# nexus
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: devops-tools
+  name: nexus-web
+spec:
+  type: NodePort
+  ports:
+  - name: webui
+    port: 80
+    targetPort: 80
+    nodePort: 30100
