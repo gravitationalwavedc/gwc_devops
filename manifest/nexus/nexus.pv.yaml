@@ -1,0 +1,16 @@
+---
+# PersistentVolume - NFS
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv-nexus
+  labels:
+    volume: nfs-pv-nexus
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1Gi
+  nfs:
+    server: 172.17.8.104
+    path: "/mnt/sharedfolder/gwdc/nexus_data"
