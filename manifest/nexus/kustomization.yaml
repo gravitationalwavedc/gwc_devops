@@ -1,8 +1,8 @@
 secretGenerator:
-- name: mysql-pass
-  namespace: gwdc
-  literals:
-  - #{KEY}=#{VAL}
+- name: nexus
+  namespace: devops-tools
+  #literals:
+  #- {KEY}=#{VAL}
 resources:
     - nexus.namespace.yaml
     #- nexus.ingress.yaml
