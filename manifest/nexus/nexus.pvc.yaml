@@ -9,7 +9,7 @@ spec:
   - ReadWriteMany
   resources:
     requests:
-      storage: 1Gi
+      storage: 10Gi
   selector:
     matchLabels:
       volume: nfs-pv-nexus

@@ -10,7 +10,7 @@ spec:
   accessModes:
   - ReadWriteMany
   capacity:
-    storage: 1Gi
+    storage: 10Gi
   nfs:
     server: 172.17.8.104
     path: "/mnt/sharedfolder/gwdc/nexus_data"
