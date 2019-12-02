@@ -5,24 +5,21 @@ kind: Service
 metadata:
   labels:
     app: nexus-server
-  name: nexus-web
-  namespace: devops-tools
+  name: nexus
+  namespace: nexus
 spec:
-  externalTrafficPolicy: Cluster
   ports:
-  - nodePort: 30100
-    name: web-ui
+  - name: web-ui
     port: 8081
     protocol: TCP
     targetPort: 8081
-  - nodePort: 30101
-    name: http-docker
+  - name: docker
     port: 9001
     protocol: TCP
     targetPort: 9001
   selector:
     app: nexus-server
   sessionAffinity: None
-  type: NodePort
+  type: ClusterIP
 status:
   loadBalancer: {}
