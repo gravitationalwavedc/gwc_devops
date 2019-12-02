@@ -20,7 +20,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: nfs-pvc-nexus
-  namespace: devops-tools
+  namespace: nexus
 spec:
   accessModes:
   - ReadWriteMany
@@ -35,7 +35,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: nexus
-  namespace: devops-tools
+  namespace: nexus
 spec:
   replicas: 1
   template:
@@ -70,7 +70,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: nexus
-  namespace: devops-tools
+  namespace: nexus
 spec:
   replicas: 1
   template:
@@ -107,7 +107,7 @@ metadata:
   labels:
     app: nexus-server
   name: nexus-web
-  namespace: devops-tools
+  namespace: nexus
 spec:
   externalTrafficPolicy: Cluster
   ports:
