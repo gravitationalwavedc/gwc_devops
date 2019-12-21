@@ -1,28 +1,21 @@
----
-# nexus
 apiVersion: v1
 kind: Service
 metadata:
   labels:
     app: nexus-server
-  name: nexus-web
+  name: nexus
   namespace: nexus
 spec:
-  externalTrafficPolicy: Cluster
   ports:
-  - nodePort: 30100
-    name: web-ui
+  - name: http
     port: 8081
     protocol: TCP
     targetPort: 8081
-  - nodePort: 30101
-    name: http-docker
-    port: 9001
+  - name: https
+    port: 5000
     protocol: TCP
-    targetPort: 9001
+    targetPort: 5000
   selector:
     app: nexus-server
   sessionAffinity: None
-  type: NodePort
-status:
-  loadBalancer: {}
+  type: ClusterIP

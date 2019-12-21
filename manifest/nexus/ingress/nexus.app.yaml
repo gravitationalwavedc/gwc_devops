@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: nexus
-  namespace: devops-tools
+  namespace: nexus
 spec:
   replicas: 1
   template:
@@ -13,21 +13,14 @@ spec:
       containers:
         - name: nexus
           image: sonatype/nexus3:latest
-          resources:
-            limits:
-              memory: "4Gi"
-              cpu: "4000m"
-            requests:
-              memory: "2Gi"
-              cpu: "100m"
           ports:
             - containerPort: 8081
-            - containerPort: 9001
+            - containerPort: 5000
           volumeMounts:
             - name: nexus-data
               mountPath: /nexus-data
       volumes:
         - name: nexus-data
           persistentVolumeClaim:
-            claimName: nfs-pvc-nexus
+            claimName: nexus
       restartPolicy: Always
