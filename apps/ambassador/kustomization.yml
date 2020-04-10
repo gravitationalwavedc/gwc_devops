@@ -1,0 +1,4 @@
+resources:
+- ambassador-rbac.yaml
+- ambassador-svc.yaml
+- demo.yaml
