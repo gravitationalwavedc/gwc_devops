@@ -1,0 +1,11 @@
+version: '3'
+services:
+  nexus:
+    image: sonatype/nexus3:3.22.0
+    ports:
+    - "30100:8081"
+    - "30101:5000"
+    volumes:
+    - ./data/restore-from-backup:/nexus-data/restore-from-backup
+    - ./data/db:/nexus-data/db
+    - ./data/blobs:/nexus-data/blobs
