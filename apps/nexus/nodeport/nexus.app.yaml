@@ -24,7 +24,7 @@ spec:
           - name: nexus-data
             mountPath: /nexus-data
       volumes:
-        - name: nexus-data
-          persistentVolumeClaim:
-            claimName: nexus
+      - name: nexus-data
+        persistentVolumeClaim:
+          claimName: nexus
       restartPolicy: Always
