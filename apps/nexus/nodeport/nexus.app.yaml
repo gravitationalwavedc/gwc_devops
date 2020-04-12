@@ -13,17 +13,18 @@ spec:
       labels:
         app: nexus-server
     spec:
-    containers:
-    - name: nexus
-      image: sonatype/nexus3:latest
-      ports:
-        - containerPort: 8081
-        - containerPort: 5000
-      volumeMounts:
+      containers:
+      - name: nexus
+        image: sonatype/nexus3:latest
+        ports:
+          - containerPort: 8081
+          - containerPort: 5000
+        resources: {}
+        volumeMounts:
+          - name: nexus-data
+            mountPath: /nexus-data
+      volumes:
         - name: nexus-data
-          mountPath: /nexus-data
-    volumes:
-      - name: nexus-data
-        persistentVolumeClaim:
-          claimName: nexus
+          persistentVolumeClaim:
+            claimName: nexus
     restartPolicy: Always
