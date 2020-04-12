@@ -1,7 +1,0 @@
-resources:
-    - nexus.ns.yaml
-    - nexus.pv.yaml
-    - nexus.pvc.yaml
-    - nexus.app.yaml
-    - nexus.svc.yaml
-    - nexus.ing.yaml
