@@ -1,2 +1,6 @@
 # gwc_devops
-Contains RAW manifest files for deploying tools to the operations cluster
+DevOps toolchain repository for the GWCloud infrastructure
+
+# ToolChain
+- Argo CD: declarative GitOps CD for Kubernetes
+- Nexus: Repository Manager
