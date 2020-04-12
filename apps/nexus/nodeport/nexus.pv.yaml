@@ -12,5 +12,5 @@ spec:
   capacity:
     storage: 1Gi
   nfs:
-    server: 10.8.0.37
+    server: 10.8.41.12
     path: "/mnt/sharedfolder/gwdc/nexus_data"
