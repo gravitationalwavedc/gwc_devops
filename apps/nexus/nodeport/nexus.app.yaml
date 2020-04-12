@@ -27,4 +27,4 @@ spec:
         - name: nexus-data
           persistentVolumeClaim:
             claimName: nexus
-    restartPolicy: Always
+      restartPolicy: Always
