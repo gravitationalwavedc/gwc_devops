@@ -12,6 +12,7 @@ spec:
   - ReadWriteMany
   capacity:
     storage: 8Gi
+  persistentVolumeReclaimPolicy: Retain
   nfs:
     server: 10.8.41.12
     path: "/mnt/sharedfolder/gwdc/phabricator/data"
@@ -29,6 +30,7 @@ spec:
   - ReadWriteMany
   capacity:
     storage: 8Gi
+  persistentVolumeReclaimPolicy: Retain
   nfs:
     server: 10.8.41.12
     path: "/mnt/sharedfolder/gwdc/phabricator/mariadb/master"
@@ -46,6 +48,7 @@ spec:
   - ReadWriteMany
   capacity:
     storage: 8Gi
+  persistentVolumeReclaimPolicy: Retain
   nfs:
     server: 10.8.41.12
     path: "/mnt/sharedfolder/gwdc/phabricator/mariadb/slave"
