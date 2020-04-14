@@ -4,7 +4,9 @@ metadata:
   finalizers:
     - kubernetes.io/pv-protection
   labels:
-    volume: phabricator-mariadb-master 
+    app: mariadb
+    component: master
+    release: phabricator
   name: phabricator-mariadb-master
 spec:
   accessModes:
@@ -21,7 +23,9 @@ metadata:
   finalizers:
     - kubernetes.io/pv-protection
   labels:
-    volume: phabricator-mariadb-slave 
+    app: mariadb
+    component: slave
+    release: phabricator
   name: phabricator-mariadb-slave
 spec:
   accessModes:
