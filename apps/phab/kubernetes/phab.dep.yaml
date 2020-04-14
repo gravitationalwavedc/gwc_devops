@@ -86,7 +86,7 @@ spec:
               name: phabricator-data
         - command:
             - /bin/apache_exporter
-            - '-scrape_uri'
+            - '--scrape_uri'
             - 'http://status.localhost:80/server-status/?auto'
           image: 'docker.io/bitnami/apache-exporter:0.8.0-debian-10-r0'
           imagePullPolicy: IfNotPresent
