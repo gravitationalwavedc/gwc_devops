@@ -1,17 +1,14 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  labels:
-      app: phabricator
-      component: master
-      release: phabricator
   name: phabricator-data
+  labels:
+    volume: phabricator 
 spec:
   accessModes:
-    - ReadWriteMany
+  - ReadWriteMany
   capacity:
     storage: 8Gi
   nfs:
-    path: /mnt/sharedfolder/gwdc/phabricator/data
     server: 10.8.41.12
-  persistentVolumeReclaimPolicy: Retain
+    path: /mnt/sharedfolder/gwdc/phabricator/data
