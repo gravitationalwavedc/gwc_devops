@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  labels:
+    app.kubernetes.io/instance: phab-pv
+    app.kubernetes.io/name: phabricator
+    volume: phabricator-data
+  name: phabricator-data
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 8Gi
+  nfs:
+    path: /mnt/sharedfolder/gwdc/phabricator/data
+    server: 10.8.41.12
+  persistentVolumeReclaimPolicy: Retain

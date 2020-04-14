@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  finalizers:
+    - kubernetes.io/pv-protection
+  labels:
+    app.kubernetes.io/instance: phabricator
+    app.kubernetes.io/name: phabricator
+    volume: phabricator-mariadb-master
+  name: phabricator-mariadb-master
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 8Gi
+  nfs:
+    path: /mnt/sharedfolder/gwdc/phabricator/mariadb/master
+    server: 10.8.41.12
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  finalizers:
+    - kubernetes.io/pv-protection
+  labels:
+    app.kubernetes.io/instance: phabricator
+    app.kubernetes.io/name: phabricator
+    volume: phabricator-mariadb-slave
+  name: phabricator-mariadb-slave
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 8Gi
+  nfs:
+    path: /mnt/sharedfolder/gwdc/phabricator/mariadb/slave
+    server: 10.8.41.12
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem

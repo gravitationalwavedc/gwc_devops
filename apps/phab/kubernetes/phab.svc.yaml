@@ -1,0 +1,24 @@
+---
+# Source: phabricator/templates/svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mariadb
+    app.kubernetes.io/instance: phabricator
+    chart: mariadb-7.3.16
+    component: slave
+    heritage: Tiller
+    release: phabricator
+  name: phabricator-mariadb-slave
+  namespace: phabricator
+spec:
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: mysql
+  selector:
+    app: mariadb
+    component: slave
+    release: phabricator
+  type: ClusterIP

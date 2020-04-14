@@ -1,0 +1,259 @@
+---
+# Source: phabricator/charts/mariadb/templates/master-statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: mariadb
+    app.kubernetes.io/instance: phabricator
+    chart: mariadb-7.3.16
+    component: master
+    heritage: Tiller
+    release: phabricator
+  name: phabricator-mariadb-master
+  namespace: phabricator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+      component: master
+      release: phabricator
+  serviceName: phabricator-mariadb-master
+  template:
+    metadata:
+      labels:
+        app: mariadb
+        chart: mariadb-7.3.16
+        component: master
+        release: phabricator
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: mariadb
+                    release: phabricator
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+      containers:
+        - env:
+            - name: MARIADB_EXTRA_FLAGS
+              value: '--local-infile=0'
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: mariadb-root-password
+                  name: phabricator-mariadb
+            - name: MARIADB_DATABASE
+              value: my_database
+            - name: MARIADB_REPLICATION_MODE
+              value: master
+            - name: MARIADB_REPLICATION_USER
+              value: replicator
+            - name: MARIADB_REPLICATION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: mariadb-replication-password
+                  name: phabricator-mariadb
+          image: 'docker.io/bitnami/mariadb:10.3.22-debian-10-r60'
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - '-c'
+                - |
+                  password_aux="${MARIADB_ROOT_PASSWORD:-}"
+                  if [ -f "${MARIADB_ROOT_PASSWORD_FILE:-}" ]; then
+                      password_aux=$(cat $MARIADB_ROOT_PASSWORD_FILE)
+                  fi
+                  mysqladmin status -uroot -p$password_aux
+            failureThreshold: 3
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: mariadb
+          ports:
+            - containerPort: 3306
+              name: mysql
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - '-c'
+                - |
+                  password_aux="${MARIADB_ROOT_PASSWORD:-}"
+                  if [ -f "${MARIADB_ROOT_PASSWORD_FILE:-}" ]; then
+                      password_aux=$(cat $MARIADB_ROOT_PASSWORD_FILE)
+                  fi
+                  mysqladmin status -uroot -p$password_aux
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          volumeMounts:
+            - mountPath: /bitnami/mariadb
+              name: data
+            - mountPath: /opt/bitnami/mariadb/conf/my.cnf
+              name: config
+              subPath: my.cnf
+      initContainers: []
+      securityContext:
+        fsGroup: 1001
+        runAsUser: 1001
+      serviceAccountName: default
+      volumes:
+        - configMap:
+            name: phabricator-mariadb-master
+          name: config
+  updateStrategy:
+    type: RollingUpdate
+  volumeClaimTemplates:
+    - metadata:
+        labels:
+          app: mariadb
+          component: master
+          heritage: Tiller
+          release: phabricator
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 8Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: mariadb
+    app.kubernetes.io/instance: phabricator
+    chart: mariadb-7.3.16
+    component: slave
+    heritage: Tiller
+    release: phabricator
+  name: phabricator-mariadb-slave
+  namespace: phabricator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+      component: slave
+      release: phabricator
+  serviceName: phabricator-mariadb-slave
+  template:
+    metadata:
+      labels:
+        app: mariadb
+        chart: mariadb-7.3.16
+        component: slave
+        release: phabricator
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: mariadb
+                    release: phabricator
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+      containers:
+        - env:
+            - name: MARIADB_REPLICATION_MODE
+              value: slave
+            - name: MARIADB_MASTER_HOST
+              value: phabricator-mariadb
+            - name: MARIADB_MASTER_PORT_NUMBER
+              value: '3306'
+            - name: MARIADB_MASTER_ROOT_USER
+              value: root
+            - name: MARIADB_MASTER_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: mariadb-root-password
+                  name: phabricator-mariadb
+            - name: MARIADB_REPLICATION_USER
+              value: replicator
+            - name: MARIADB_REPLICATION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: mariadb-replication-password
+                  name: phabricator-mariadb
+          image: 'docker.io/bitnami/mariadb:10.3.22-debian-10-r60'
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - '-c'
+                - |
+                  password_aux="${MARIADB_MASTER_ROOT_PASSWORD:-}"
+                  if [ -f "${MARIADB_MASTER_ROOT_PASSWORD_FILE:-}" ]; then
+                      password_aux=$(cat $MARIADB_MASTER_ROOT_PASSWORD_FILE)
+                  fi
+                  mysqladmin status -uroot -p$password_aux
+            failureThreshold: 3
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: mariadb
+          ports:
+            - containerPort: 3306
+              name: mysql
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - '-c'
+                - |
+                  password_aux="${MARIADB_MASTER_ROOT_PASSWORD:-}"
+                  if [ -f "${MARIADB_MASTER_ROOT_PASSWORD_FILE:-}" ]; then
+                      password_aux=$(cat $MARIADB_MASTER_ROOT_PASSWORD_FILE)
+                  fi
+                  mysqladmin status -uroot -p$password_aux
+            failureThreshold: 3
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          volumeMounts:
+            - mountPath: /bitnami/mariadb
+              name: data
+            - mountPath: /opt/bitnami/mariadb/conf/my.cnf
+              name: config
+              subPath: my.cnf
+      initContainers: []
+      securityContext:
+        fsGroup: 1001
+        runAsUser: 1001
+      serviceAccountName: default
+      volumes:
+        - configMap:
+            name: phabricator-mariadb-slave
+          name: config
+  updateStrategy:
+    type: RollingUpdate
+  volumeClaimTemplates:
+    - metadata:
+        labels:
+          app: mariadb
+          component: slave
+          heritage: Tiller
+          release: phabricator
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 8Gi
