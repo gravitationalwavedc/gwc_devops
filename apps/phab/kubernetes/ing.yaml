@@ -1,6 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
+  annotations: {}
   labels:
     app.kubernetes.io/instance: phabricator
     app.kubernetes.io/managed-by: Tiller
@@ -17,4 +18,6 @@ spec:
               serviceName: phabricator
               servicePort: http
             path: /
-  tls: null
+  tls:
+  - hosts:
+    - phab.gw-cloud.org
