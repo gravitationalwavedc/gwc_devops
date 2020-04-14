@@ -123,7 +123,7 @@ spec:
         name: data
       spec:
         accessModes:
-          - ReadWriteOnce
+          - ReadWriteMany
         selector:
           matchLabels:
             app: mariadb
@@ -258,7 +258,7 @@ spec:
         name: data
       spec:
         accessModes:
-          - ReadWriteOnce
+          - ReadWriteMany
         selector:
           matchLabels:
             app: mariadb
