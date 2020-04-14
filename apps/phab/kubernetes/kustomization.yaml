@@ -2,12 +2,12 @@ resources:
 - ns.yaml
 - db.pv.yaml
 - db.configmap.yaml
-- db.secret.yaml
+- db.secrets.yaml
 - db.stateful-set.yaml
 - db.svc.yaml
 - phab.pv.yaml
 - phab.pvc.yaml
-- phab.secret.yaml
+- phab.secrets.yaml
 - phab.dep.yaml
 - phab.svc.yaml
 - ing.yaml
