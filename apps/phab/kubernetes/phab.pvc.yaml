@@ -13,7 +13,7 @@ spec:
     - ReadWriteOnce
   selector:
     matchLabels:
-      app: mariadb
+      app: phabricator
       component: master
       release: phabricator
   resources:
