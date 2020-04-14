@@ -20,3 +20,8 @@ spec:
   tls:
   - hosts:
     - phab.gw-cloud.org
+
+status:
+  loadBalancer:
+    ingress:
+    - hostname: 136.186.1.192
