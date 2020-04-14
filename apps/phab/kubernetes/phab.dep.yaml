@@ -35,7 +35,7 @@ spec:
                   key: mariadb-root-password
                   name: phabricator-mariadb
             - name: PHABRICATOR_HOST
-              value: 127.0.0.1
+              value: https://phab.gw-cloud.org
             - name: PHABRICATOR_USERNAME
               value: admin
             - name: PHABRICATOR_PASSWORD
