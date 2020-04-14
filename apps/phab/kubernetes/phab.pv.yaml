@@ -2,9 +2,8 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   labels:
-    app.kubernetes.io/instance: phab-pv
-    app.kubernetes.io/name: phabricator
-    volume: phabricator-data
+      app.kubernetes.io/instance: phabricator
+      app.kubernetes.io/name: phabricator
   name: phabricator-data
 spec:
   accessModes:
