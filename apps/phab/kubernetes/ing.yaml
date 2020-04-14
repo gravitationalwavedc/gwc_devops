@@ -20,3 +20,7 @@ spec:
   tls:
   - hosts:
     - phab.gw-cloud.org
+status:
+  loadBalancer:
+    ingress:
+    - {}
