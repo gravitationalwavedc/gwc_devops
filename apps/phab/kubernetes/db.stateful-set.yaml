@@ -124,6 +124,11 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
+      selector:
+        matchLabels:
+          app: mariadb
+          component: master
+          release: phabricator
         resources:
           requests:
             storage: 8Gi
@@ -254,6 +259,11 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
+      selector:
+        matchLabels:
+          app: mariadb
+          component: slave
+          release: phabricator
         resources:
           requests:
             storage: 8Gi

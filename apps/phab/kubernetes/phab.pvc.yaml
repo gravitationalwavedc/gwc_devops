@@ -11,6 +11,11 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  selector:
+    matchLabels:
+      app: mariadb
+      component: master
+      release: phabricator
   resources:
     requests:
       storage: 8Gi
