@@ -18,6 +18,8 @@ spec:
     - name: https
       port: 443
       targetPort: https
+  externalIPs:
+    - 136.186.1.192
   selector:
     app.kubernetes.io/name: phabricator
     app.kubernetes.io/instance: phabricator
