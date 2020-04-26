@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  vault:
+    image: vault:1.4.0
+    environment:
+      - VAULT_ADDR: 'http://127.0.0.1:8200'
+    ports:
+      - "8200:8200"
+    restart: always
+    volumes:
+      - ./data/config:/vault/config
+      - ./data/logs:/vault/logs
+      - ./data/file:/vault/file

@@ -1,0 +1,6 @@
+---
+resources:
+  - vault.ns.yaml
+  - vault.pv.yaml
+  - vault.cm.yaml
+  - vault.stateful-set.yaml

@@ -1,0 +1,23 @@
+---
+# Source: vault/templates/injector-mutating-webhook.yaml
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: RELEASE-NAME-vault-agent-injector-cfg
+  labels:
+    app.kubernetes.io/name: vault-agent-injector
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+webhooks:
+  - name: vault.hashicorp.com
+    clientConfig:
+      service:
+        name: RELEASE-NAME-vault-agent-injector-svc
+        namespace: vault
+        path: "/mutate"
+      caBundle: 
+    rules:
+      - operations: ["CREATE", "UPDATE"]
+        apiGroups: [""]
+        apiVersions: ["v1"]
+        resources: ["pods"]
