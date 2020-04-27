@@ -7,13 +7,13 @@ metadata:
   namespace: vault
   labels:
     app.kubernetes.io/name: vault-agent-injector
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: RELEASE-NAME-vault-agent-injector-clusterrole
+  name: vault-agent-injector-clusterrole
 subjects:
 - kind: ServiceAccount
-  name: RELEASE-NAME-vault-agent-injector
+  name: vault-agent-injector
   namespace: vault
