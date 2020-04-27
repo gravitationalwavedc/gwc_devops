@@ -4,11 +4,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: RELEASE-NAME-vault-agent-injector
+  name: vault-agent-injector
   namespace: vault
   labels:
     app.kubernetes.io/name: vault-agent-injector
-    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
     component: webhook
 spec:
@@ -16,27 +16,23 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: vault-agent-injector
-      app.kubernetes.io/instance: RELEASE-NAME
+      app.kubernetes.io/instance: vault
       component: webhook
   template:
     metadata:
       labels:
         app.kubernetes.io/name: vault-agent-injector
-        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/instance: vault
         component: webhook
     spec:
-      
-      
-      
-      serviceAccountName: "RELEASE-NAME-vault-agent-injector"
+      serviceAccountName: "vault-agent-injector"
       securityContext:
         runAsNonRoot: true
         runAsGroup: 1000
         runAsUser: 100
       containers:
         - name: sidecar-injector
-          
-          image: "hashicorp/vault-k8s:0.3.0"
+          image: "hashicorp/vault-k8s:0.2.0"
           imagePullPolicy: "IfNotPresent"
           env:
             - name: AGENT_INJECT_LISTEN
@@ -44,20 +40,13 @@ spec:
             - name: AGENT_INJECT_LOG_LEVEL
               value: info
             - name: AGENT_INJECT_VAULT_ADDR
-              value: http://RELEASE-NAME-vault.vault.svc:8200
-            - name: AGENT_INJECT_VAULT_AUTH_PATH
-              value: auth/kubernetes
+              value: http://vault.svc:8200
             - name: AGENT_INJECT_VAULT_IMAGE
-              value: "vault:1.4.0"
+              value: "vault:1.3.2"
             - name: AGENT_INJECT_TLS_AUTO
-              value: RELEASE-NAME-vault-agent-injector-cfg
+              value: vault-agent-injector-cfg
             - name: AGENT_INJECT_TLS_AUTO_HOSTS
-              value: RELEASE-NAME-vault-agent-injector-svc,RELEASE-NAME-vault-agent-injector-svc.vault,RELEASE-NAME-vault-agent-injector-svc.vault.svc
-            - name: AGENT_INJECT_LOG_FORMAT
-              value: standard
-            - name: AGENT_INJECT_REVOKE_ON_SHUTDOWN
-              value: "false"
-            
+              value: vault-agent-injector-svc,vault-agent-injector-svc.vault,vault-agent-injector-svc.vault.svc
           args:
             - agent-inject
             - 2>&1

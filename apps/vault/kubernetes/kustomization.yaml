@@ -2,5 +2,14 @@
 resources:
   - vault.ns.yaml
   - vault.pv.yaml
+  - vault.crb.yaml
+  - vault.svc-account.yaml
   - vault.cm.yaml
   - vault.stateful-set.yaml
+  - vault.svc.yaml
+  - injector.cr.yaml
+  - injector.crb.yaml
+  - injector.svc-account.yaml
+  - injector.dep.yaml
+  - injector.mutating-webhook.yaml
+  - injector.svc.yaml
