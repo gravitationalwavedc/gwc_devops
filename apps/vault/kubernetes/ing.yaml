@@ -10,7 +10,8 @@ metadata:
     app.kubernetes.io/name: vault
 spec:
   rules:
-  - http:
+  - host: vault.gw-cloud.org
+    http:
       paths:
       - path: /
         backend:
