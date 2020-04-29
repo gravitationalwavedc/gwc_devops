@@ -13,3 +13,4 @@ resources:
   - injector.dep.yaml
   - injector.mutating-webhook.yaml
   - injector.svc.yaml
+  - ing.yaml
