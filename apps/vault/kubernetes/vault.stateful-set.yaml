@@ -95,7 +95,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: VAULT_CLUSTER_ADDR
-              value: "https://$(HOSTNAME).RELEASE-NAME-vault-internal:8201"
+              value: "https://$(HOSTNAME).vault-internal:8201"
           volumeMounts:
             - name: data
               mountPath: /vault/data
@@ -140,7 +140,7 @@ spec:
         name: data
       spec:
         accessModes:
-          - ReadWriteOnce
+          - ReadWriteMany
         selector:
           matchLabels:
             app: vault
