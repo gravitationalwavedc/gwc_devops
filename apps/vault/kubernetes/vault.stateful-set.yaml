@@ -148,4 +148,4 @@ spec:
             release: vault
         resources:
           requests:
-            storage: 10Gi
+            storage: 8Gi
