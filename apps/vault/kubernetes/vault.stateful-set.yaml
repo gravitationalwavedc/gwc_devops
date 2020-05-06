@@ -29,7 +29,6 @@ spec:
         app.kubernetes.io/instance: may0620
         component: server
     spec:
-      
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
