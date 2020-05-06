@@ -5,9 +5,9 @@ metadata:
   namespace: vault
   annotations:
     nginx.ingress.kubernetes.io/cors-allow-methods: 'PUT, GET, POST, DELETE, PATCH, OPTIONS'
-    app.kubernetes.io/instance: vault
-    app.kubernetes.io/managed-by: Tiller
     app.kubernetes.io/name: vault
+    app.kubernetes.io/instance: may0620
+    app.kubernetes.io/managed-by: Helm
 spec:
   rules:
   - host: vault.gw-cloud.org
@@ -15,5 +15,5 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: vault
+          serviceName: may0620-vault
           servicePort: 8200
