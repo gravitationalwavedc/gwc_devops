@@ -3,9 +3,9 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: MAY0620-vault-agent-injector
+  name: may0620-vault-agent-injector
   namespace: vault
   labels:
     app.kubernetes.io/name: vault-agent-injector
-    app.kubernetes.io/instance: MAY0620
+    app.kubernetes.io/instance: may0620
     app.kubernetes.io/managed-by: Helm

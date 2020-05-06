@@ -4,14 +4,14 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: MAY0620-vault
+  name: may0620-vault
   namespace: vault
   labels:
     app.kubernetes.io/name: vault
-    app.kubernetes.io/instance: MAY0620
+    app.kubernetes.io/instance: may0620
     app.kubernetes.io/managed-by: Helm
 spec:
-  serviceName: MAY0620-vault-internal
+  serviceName: may0620-vault-internal
   podManagementPolicy: Parallel
   replicas: 1
   updateStrategy:
@@ -19,14 +19,14 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: vault
-      app.kubernetes.io/instance: MAY0620
+      app.kubernetes.io/instance: may0620
       component: server
   template:
     metadata:
       labels:
         helm.sh/chart: vault-0.5.0
         app.kubernetes.io/name: vault
-        app.kubernetes.io/instance: MAY0620
+        app.kubernetes.io/instance: may0620
         component: server
     spec:
       
@@ -36,11 +36,11 @@ spec:
             - labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: vault
-                  app.kubernetes.io/instance: "MAY0620"
+                  app.kubernetes.io/instance: "may0620"
                   component: server
               topologyKey: kubernetes.io/hostname
       terminationGracePeriodSeconds: 10
-      serviceAccountName: MAY0620-vault
+      serviceAccountName: may0620-vault
       securityContext:
         runAsNonRoot: true
         runAsGroup: 1000
@@ -49,7 +49,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: MAY0620-vault-config
+            name: may0620-vault-config
       containers:
         - name: vault
           securityContext:
@@ -95,7 +95,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: VAULT_CLUSTER_ADDR
-              value: "https://$(HOSTNAME).MAY0620-vault-internal:8201"
+              value: "https://$(HOSTNAME).may0620-vault-internal:8201"
           volumeMounts:
             - name: data
               mountPath: /vault/data
