@@ -3,12 +3,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: vault-config
+  name: 200506-vault-config
   namespace: vault
   labels:
     helm.sh/chart: vault-0.5.0
     app.kubernetes.io/name: vault
-    app.kubernetes.io/instance: vault
+    app.kubernetes.io/instance: 200506
     app.kubernetes.io/managed-by: Helm
 data:
   extraconfig-from-values.hcl: |-
