@@ -7,5 +7,5 @@ metadata:
   namespace: vault
   labels:
     app.kubernetes.io/name: vault-agent-injector
-    app.kubernetes.io/instance: 200506
+    app.kubernetes.io/instance: "200506"
     app.kubernetes.io/managed-by: Helm

@@ -6,7 +6,7 @@ metadata:
   name: 200506-vault-agent-injector-clusterrole
   labels:
     app.kubernetes.io/name: vault-agent-injector
-    app.kubernetes.io/instance: 200506
+    app.kubernetes.io/instance: "200506"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups: ["admissionregistration.k8s.io"]

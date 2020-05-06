@@ -8,7 +8,7 @@ metadata:
   namespace: vault
   labels:
     app.kubernetes.io/name: vault-agent-injector
-    app.kubernetes.io/instance: 200506
+    app.kubernetes.io/instance: "200506"
     app.kubernetes.io/managed-by: Helm
     component: webhook
 spec:
@@ -16,13 +16,13 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: vault-agent-injector
-      app.kubernetes.io/instance: 200506
+      app.kubernetes.io/instance: "200506"
       component: webhook
   template:
     metadata:
       labels:
         app.kubernetes.io/name: vault-agent-injector
-        app.kubernetes.io/instance: 200506
+        app.kubernetes.io/instance: "200506"
         component: webhook
     spec:
       serviceAccountName: "200506-vault-agent-injector"

@@ -8,5 +8,5 @@ metadata:
   labels:
     helm.sh/chart: vault-0.5.0
     app.kubernetes.io/name: vault
-    app.kubernetes.io/instance: 200506
+    app.kubernetes.io/instance: "200506"
     app.kubernetes.io/managed-by: Helm
