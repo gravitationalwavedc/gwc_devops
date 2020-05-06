@@ -4,14 +4,14 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: 200506-vault
+  name: MAY0620-vault
   namespace: vault
   labels:
     app.kubernetes.io/name: vault
-    app.kubernetes.io/instance: 200506
+    app.kubernetes.io/instance: MAY0620
     app.kubernetes.io/managed-by: Helm
 spec:
-  serviceName: 200506-vault-internal
+  serviceName: MAY0620-vault-internal
   podManagementPolicy: Parallel
   replicas: 1
   updateStrategy:
@@ -19,14 +19,14 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: vault
-      app.kubernetes.io/instance: 200506
+      app.kubernetes.io/instance: MAY0620
       component: server
   template:
     metadata:
       labels:
         helm.sh/chart: vault-0.5.0
         app.kubernetes.io/name: vault
-        app.kubernetes.io/instance: 200506
+        app.kubernetes.io/instance: MAY0620
         component: server
     spec:
       
@@ -36,14 +36,14 @@ spec:
             - labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: vault
-                  app.kubernetes.io/instance: "200506"
+                  app.kubernetes.io/instance: "MAY0620"
                   component: server
               topologyKey: kubernetes.io/hostname
   
       
       
       terminationGracePeriodSeconds: 10
-      serviceAccountName: 200506-vault
+      serviceAccountName: MAY0620-vault
       
       securityContext:
         runAsNonRoot: true
@@ -54,7 +54,7 @@ spec:
         
         - name: config
           configMap:
-            name: 200506-vault-config
+            name: MAY0620-vault-config
   
       containers:
         - name: vault
@@ -104,7 +104,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: VAULT_CLUSTER_ADDR
-              value: "https://$(HOSTNAME).200506-vault-internal:8201"
+              value: "https://$(HOSTNAME).MAY0620-vault-internal:8201"
             
             
             

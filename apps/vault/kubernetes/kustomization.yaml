@@ -10,7 +10,7 @@ resources:
   - injector.cr.yaml
   - injector.crb.yaml
   - injector.svc-account.yaml
-  - injector.dep.yaml
-  - injector.mutating-webhook.yaml
-  - injector.svc.yaml
+#  - injector.dep.yaml
+#  - injector.mutating-webhook.yaml
+#  - injector.svc.yaml
   - ing.yaml

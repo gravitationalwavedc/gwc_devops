@@ -3,12 +3,12 @@
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
-  name: 200506-vault-server-binding
+  name: MAY0620-vault-server-binding
   namespace: vault
   labels:
     helm.sh/chart: vault-0.5.0
     app.kubernetes.io/name: vault
-    app.kubernetes.io/instance: "200506"
+    app.kubernetes.io/instance: MAY0620
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -16,5 +16,5 @@ roleRef:
   name: system:auth-delegator
 subjects:
 - kind: ServiceAccount
-  name: 200506-vault
+  name: MAY0620-vault
   namespace: vault

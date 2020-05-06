@@ -3,16 +3,16 @@
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingWebhookConfiguration
 metadata:
-  name: 200506-vault-agent-injector-cfg
+  name: MAY0620-vault-agent-injector-cfg
   labels:
     app.kubernetes.io/name: vault-agent-injector
-    app.kubernetes.io/instance: "200506"
+    app.kubernetes.io/instance: MAY0620
     app.kubernetes.io/managed-by: Helm
 webhooks:
   - name: vault.hashicorp.com
     clientConfig:
       service:
-        name: 200506-vault-agent-injector-svc
+        name: MAY0620-vault-agent-injector-svc
         namespace: vault
         path: "/mutate"
       caBundle: 
