@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: common
+  name: secrets-integrator-common
   namespace: gwcloud
   labels:
     app: vault-agent

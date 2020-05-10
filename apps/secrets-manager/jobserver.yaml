@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: job-server
+  name: secrets-integrator-job-server
   namespace: gwcloud
   labels:
     app: vault-agent
