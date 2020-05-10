@@ -22,11 +22,9 @@ spec:
             name: react-host
           type: Opaque
           stringData:
-            MYSQL_DATABASE: {{ .Data.data.MYSQL_DATABASE }}
-            MYSQL_HOST: {{ .Data.data.MYSQL_HOST }}
-            MYSQL_PASSWORD: {{ .Data.data.MYSQL_PASSWORD }}
-            MYSQL_ROOT_PASSWORD: {{ .Data.data.MYSQL_ROOT_PASSWORD }}
-            MYSQL_USER: {{ .Data.data.MYSQL_USER }}
+            {{ range $k, $v := .Data }}
+              {{ $k }}: {{ $v }}
+            {{ end }}
           ...
           {{- end }}
         vault.hashicorp.com/role: "gwcloud"

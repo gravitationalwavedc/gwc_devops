@@ -7,6 +7,7 @@ metadata:
   labels:
     app: vault-agent
 spec:
+  ttlSecondsAfterFinished: 5
   template:
     metadata:
       annotations:
@@ -22,8 +23,9 @@ spec:
             name: common
           type: Opaque
           stringData:
-            SECRET_CAPTCHA_KEY: {{ .Data.data.SECRET_CAPTCHA_KEY }}
-            SECRET_KEY: {{ .Data.data.MYSQL_HOST }}
+            {{ range $k, $v := .Data }}
+              {{ $k }}: {{ $v }}
+            {{ end }}
           ...
           {{- end }}
         vault.hashicorp.com/role: "gwcloud"
