@@ -1,5 +1,5 @@
 resources:
 - sa.yaml
-- react-host.yaml
+- gwcloud-auth.yaml.yaml
 - common.yaml
 - jobserver.yaml

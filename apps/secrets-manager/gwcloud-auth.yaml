@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: react-host
+  name: gwcloud-auth
   namespace: gwcloud
   labels:
     app: vault-agent
@@ -15,14 +15,14 @@ spec:
       annotations:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/agent-init-first: "true"
-        vault.hashicorp.com/agent-inject-secret-env: "gwcloud/kv/react-host"
+        vault.hashicorp.com/agent-inject-secret-env: "gwcloud/kv/gwcloud-auth"
         vault.hashicorp.com/agent-inject-template-env: |
-          {{- with secret "gwcloud/kv/react-host" -}}
+          {{- with secret "gwcloud/kv/gwcloud-auth" -}}
           ---
           apiVersion: v1
           kind: Secret
           metadata:
-            name: react-host
+            name: gwcloud-auth
           type: Opaque
           stringData:
             {{ range $k, $v := .Data.data }}
