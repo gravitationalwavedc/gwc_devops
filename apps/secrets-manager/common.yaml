@@ -1,58 +1,53 @@
 ---
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: batch/v1
+kind: Job
 metadata:
   name: common
   namespace: gwcloud
   labels:
     app: vault-agent
 spec:
-  schedule: "*/1 * * * *"
-  concurrencyPolicy: Forbid
-  jobTemplate:
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/agent-init-first: "true"
+        vault.hashicorp.com/agent-inject-secret-env: "gwcloud/kv/common"
+        vault.hashicorp.com/agent-inject-template-env: |
+          {{- with secret "gwcloud/kv/common" -}}
+           ---
+          apiVersion: v1
+          kind: Secret
+          metadata:
+            name: common
+          type: Opaque
+          stringData:
+            SECRET_CAPTCHA_KEY: {{ .Data.data.SECRET_CAPTCHA_KEY }}
+            SECRET_KEY: {{ .Data.data.MYSQL_HOST }}
+          ...
+          {{- end }}
+        vault.hashicorp.com/role: "gwcloud"
+      labels:
+        app: vault-agent
     spec:
-      activeDeadlineSeconds: 5
-      template:
-        metadata:
-          annotations:
-            vault.hashicorp.com/agent-inject: "true"
-            vault.hashicorp.com/agent-init-first: "true"
-            vault.hashicorp.com/agent-inject-secret-env: "gwcloud/kv/common"
-            vault.hashicorp.com/agent-inject-template-env: |
-              {{- with secret "gwcloud/kv/common" -}}
-               ---
-              apiVersion: v1
-              kind: Secret
-              metadata:
-                name: common
-              type: Opaque
-              stringData:
-                SECRET_CAPTCHA_KEY: {{ .Data.data.SECRET_CAPTCHA_KEY }}
-                SECRET_KEY: {{ .Data.data.MYSQL_HOST }}
-              ...
-              {{- end }}
-            vault.hashicorp.com/role: "gwcloud"
-          labels:
-            app: vault-agent
-        spec:
-          restartPolicy: Never
-          securityContext:
-            runAsUser: 0
-          serviceAccountName: gwcloud
-          containers:
-          - name: app
-            image: bitnami/kubectl:1.17.4
-            args: [
-            "apply","-f","/vault/secrets/env"
-            ]
-            volumeMounts:
-              - mountPath: /.kube
-                name: secrets
-          nodeSelector:
-            dedicated: master
-          volumes:
-            - name: secrets
-              hostPath:
-                path: /home/ubuntu/.kube
-                type: Directory
+      restartPolicy: Never
+      securityContext:
+        runAsUser: 0
+      serviceAccountName: gwcloud
+      containers:
+      - name: app
+        image: bitnami/kubectl:1.17.4
+        args: [
+        "apply","-f","/vault/secrets/env"
+        ]
+        volumeMounts:
+          - mountPath: /.kube
+            name: secrets
+      nodeSelector:
+        dedicated: master
+      volumes:
+        - name: secrets
+          hostPath:
+            path: /home/ubuntu/.kube
+            type: Directory
 ...

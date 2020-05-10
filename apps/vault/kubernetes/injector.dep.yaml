@@ -25,9 +25,6 @@ spec:
         app.kubernetes.io/instance: may0620
         component: webhook
     spec:
-      
-      
-      
       serviceAccountName: "may0620-vault-agent-injector"
       securityContext:
         runAsNonRoot: true
@@ -35,7 +32,6 @@ spec:
         runAsUser: 100
       containers:
         - name: sidecar-injector
-          
           image: "hashicorp/vault-k8s:0.3.0"
           imagePullPolicy: "IfNotPresent"
           env:
@@ -57,7 +53,6 @@ spec:
               value: standard
             - name: AGENT_INJECT_REVOKE_ON_SHUTDOWN
               value: "false"
-            
           args:
             - agent-inject
             - 2>&1
