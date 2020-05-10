@@ -7,7 +7,6 @@ metadata:
   labels:
     app: vault-agent
 spec:
-  ttlSecondsAfterFinished: 5
   template:
     metadata:
       annotations:
@@ -23,9 +22,9 @@ spec:
             name: common
           type: Opaque
           stringData:
-            {{ range $k, $v := .Data.data }}
-              {{ $k }}: {{ $v }}
-            {{ end }}
+          {{ range $k, $v := .Data.data }}
+            {{ $k }}: {{ $v }}
+          {{ end }}
           ...
           {{- end }}
         vault.hashicorp.com/role: "gwcloud"
@@ -42,6 +41,13 @@ spec:
         args: [
         "apply","-f","/vault/secrets/env"
         ]
+        readinessProbe:
+          exec:
+            command:
+            - kubectl
+            - get secrets common
+          initialDelaySeconds: 5
+          periodSeconds: 5
         volumeMounts:
           - mountPath: /.kube
             name: secrets
