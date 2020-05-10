@@ -15,7 +15,7 @@ spec:
         vault.hashicorp.com/agent-inject-secret-env: "gwcloud/kv/react-host"
         vault.hashicorp.com/agent-inject-template-env: |
           {{- with secret "gwcloud/kv/react-host" -}}
-           ---
+          ---
           apiVersion: v1
           kind: Secret
           metadata:

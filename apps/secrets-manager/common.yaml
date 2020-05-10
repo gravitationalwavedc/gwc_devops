@@ -16,7 +16,7 @@ spec:
         vault.hashicorp.com/agent-inject-secret-env: "gwcloud/kv/common"
         vault.hashicorp.com/agent-inject-template-env: |
           {{- with secret "gwcloud/kv/common" -}}
-           ---
+          ---
           apiVersion: v1
           kind: Secret
           metadata:
