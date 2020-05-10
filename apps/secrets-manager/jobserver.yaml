@@ -22,7 +22,7 @@ spec:
             name: job-server
           type: Opaque
           stringData:
-            {{ range $k, $v := .Data }}
+            {{ range $k, $v := .Data.data }}
               {{ $k }}: {{ $v }}
             {{ end }}
           ...

@@ -23,7 +23,7 @@ spec:
             name: common
           type: Opaque
           stringData:
-            {{ range $k, $v := .Data }}
+            {{ range $k, $v := .Data.data }}
               {{ $k }}: {{ $v }}
             {{ end }}
           ...
