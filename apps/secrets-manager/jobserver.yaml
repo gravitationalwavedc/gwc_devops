@@ -1,12 +1,15 @@
 ---
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: job-server
   namespace: gwcloud
   labels:
     app: vault-agent
 spec:
+  selector:
+    matchLabels:
+      app: vault-kube-integrator
   template:
     metadata:
       annotations:
@@ -22,25 +25,33 @@ spec:
             name: job-server
           type: Opaque
           stringData:
-            {{ range $k, $v := .Data.data }}
-              {{ $k }}: {{ $v }}
-            {{ end }}
+          {{ range $k, $v := .Data.data }}
+          {{ $k }}: {{ $v }}
+          {{ end }}
           ...
           {{- end }}
         vault.hashicorp.com/role: "gwcloud"
       labels:
-        app: vault-agent
+        app: vault-kube-integrator
     spec:
-      restartPolicy: Never
+      restartPolicy: Always
       securityContext:
         runAsUser: 0
       serviceAccountName: gwcloud
       containers:
       - name: app
         image: bitnami/kubectl:1.17.4
-        args: [
-        "apply","-f","/vault/secrets/env"
-        ]
+        command: ["bash"]
+        livenessProbe:
+          exec:
+            command:
+            - kubectl
+            - apply 
+            - -f
+            - /vault/secrets/env
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        tty: true
         volumeMounts:
           - mountPath: /.kube
             name: secrets
