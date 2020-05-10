@@ -23,7 +23,7 @@ spec:
           type: Opaque
           stringData:
           {{ range $k, $v := .Data.data }}
-            {{ $k }}: {{ $v }}
+          {{ $k }}: {{ $v }}
           {{ end }}
           ...
           {{- end }}
@@ -45,7 +45,7 @@ spec:
           exec:
             command:
             - kubectl
-            - get secrets common
+            - get -f /vault/secrets/env
           initialDelaySeconds: 5
           periodSeconds: 5
         volumeMounts:
