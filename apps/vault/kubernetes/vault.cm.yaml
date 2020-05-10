@@ -13,6 +13,7 @@ metadata:
 data:
   extraconfig-from-values.hcl: |-
     disable_mlock = true
+    exit_after_auth = true
     ui = true
     
     listener "tcp" {
