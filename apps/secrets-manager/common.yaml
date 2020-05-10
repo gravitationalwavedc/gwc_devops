@@ -25,9 +25,9 @@ spec:
             name: common
           type: Opaque
           stringData:
-          {{ range $k, $v := .Data.data }}
-          {{ $k }}: {{ $v }}
-          {{ end }}
+            {{ range $k, $v := .Data.data }}
+            {{ $k }}: {{ $v }}
+            {{ end }}
           ...
           {{- end }}
         vault.hashicorp.com/role: "gwcloud"
