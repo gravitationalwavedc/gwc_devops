@@ -2,7 +2,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: common
+  name: job-server
   namespace: gwcloud
   labels:
     app: vault-agent
