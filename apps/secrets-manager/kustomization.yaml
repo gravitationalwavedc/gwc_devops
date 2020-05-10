@@ -1,5 +1,5 @@
 resources:
 - sa.yaml
-- gwcloud-auth.yaml.yaml
+- gwcloud-auth.yaml
 - common.yaml
 - jobserver.yaml
