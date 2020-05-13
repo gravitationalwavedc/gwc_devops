@@ -3,3 +3,4 @@ resources:
 - gwcloud-auth.yaml
 - common.yaml
 - jobserver.yaml
+- bilby.yaml
