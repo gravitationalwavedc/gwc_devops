@@ -39,25 +39,9 @@ spec:
                 topologyKey: kubernetes.io/hostname
               weight: 1
       containers:
-        - env:
-            - name: MARIADB_EXTRA_FLAGS
-              value: '--local-infile=0'
-            - name: MARIADB_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: mariadb-root-password
-                  name: phabricator-mariadb
-            - name: MARIADB_DATABASE
-              value: my_database
-            - name: MARIADB_REPLICATION_MODE
-              value: master
-            - name: MARIADB_REPLICATION_USER
-              value: replicator
-            - name: MARIADB_REPLICATION_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: mariadb-replication-password
-                  name: phabricator-mariadb
+        - envFrom:
+            - secretRef:
+                name: phabricator-db-master
           image: 'docker.io/bitnami/mariadb:10.3.22-debian-10-r60'
           imagePullPolicy: IfNotPresent
           livenessProbe:
@@ -172,27 +156,25 @@ spec:
                 topologyKey: kubernetes.io/hostname
               weight: 1
       containers:
-        - env:
-            - name: MARIADB_REPLICATION_MODE
-              value: slave
-            - name: MARIADB_MASTER_HOST
-              value: phabricator-mariadb
-            - name: MARIADB_MASTER_PORT_NUMBER
-              value: '3306'
-            - name: MARIADB_MASTER_ROOT_USER
-              value: root
+        - envFrom:
+            - secretRef:
+                name: phabricator-db-replica
+          env:
             - name: MARIADB_MASTER_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: mariadb-root-password
-                  name: phabricator-mariadb
+                  key: MARIADB_ROOT_PASSWORD
+                  name: phabricator-db-master
             - name: MARIADB_REPLICATION_USER
-              value: replicator
+              valueFrom:
+                secretKeyRef:
+                  key: MARIADB_REPLICATION_USER
+                  name: phabricator-db-master
             - name: MARIADB_REPLICATION_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: mariadb-replication-password
-                  name: phabricator-mariadb
+                  key: MARIADB_REPLICATION_PASSWORD
+                  name: phabricator-db-master
           image: 'docker.io/bitnami/mariadb:10.3.22-debian-10-r60'
           imagePullPolicy: IfNotPresent
           livenessProbe:

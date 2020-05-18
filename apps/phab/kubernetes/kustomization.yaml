@@ -1,15 +1,15 @@
 resources:
-- ns.yaml
-- phab.sa.yaml
-- phab.secrets-integrator.yaml
-- db.pv.yaml
-- db.configmap.yaml
-- db.secrets.yaml
-- db.stateful-set.yaml
-- db.svc.yaml
-- phab.pv.yaml
-- phab.pvc.yaml
-- phab.secrets.yaml
-- phab.dep.yaml
-- phab.svc.yaml
-- ing.yaml
+  - ns.yaml
+  - phab.sa.yaml
+  - phab.secrets-integrator.yaml
+  - db.pv.yaml
+  - db.configmap.yaml
+  #- db.secrets.yaml
+  - db.stateful-set.yaml
+  - db.svc.yaml
+  - phab.pv.yaml
+  - phab.pvc.yaml
+  #- phab.secrets.yaml
+  - phab.dep.yaml
+  - phab.svc.yaml
+  - ing.yaml
