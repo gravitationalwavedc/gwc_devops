@@ -24,31 +24,15 @@ spec:
         helm.sh/chart: phabricator-9.0.17
     spec:
       containers:
-        - env:
-            - name: MARIADB_HOST
-              value: phabricator-mariadb
-            - name: MARIADB_PORT_NUMBER
-              value: '3306'
+        - envFrom:
+            - secretRef:
+                name: phabricator-app
+          env:
             - name: MARIADB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: mariadb-root-password
-                  name: phabricator-mariadb
-            - name: PHABRICATOR_HOST
-              value: https://phab.gw-cloud.org
-            - name: PHABRICATOR_USERNAME
-              value: admin
-            - name: PHABRICATOR_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: phabricator-password
-                  name: phabricator
-            - name: PHABRICATOR_EMAIL
-              value: admin@gw-cloud.org
-            - name: PHABRICATOR_FIRSTNAME
-              value: First Name
-            - name: PHABRICATOR_LASTNAME
-              value: Last Name
+                  key: MARIADB_ROOT_PASSWORD
+                  name: phabricator-db-master
           image: 'docker.io/bitnami/phabricator:2020.7.0-debian-10-r41'
           imagePullPolicy: IfNotPresent
           livenessProbe:

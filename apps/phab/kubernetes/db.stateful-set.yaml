@@ -175,6 +175,17 @@ spec:
                 secretKeyRef:
                   key: MARIADB_REPLICATION_PASSWORD
                   name: phabricator-db-master
+            - name: MARIADB_MASTER_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: MARIADB_HOST
+                  name: phabricator-app
+            - name: MARIADB_MASTER_PORT_NUMBER
+              valueFrom:
+                secretKeyRef:
+                  key: MARIADB_PORT_NUMBER
+                  name: phabricator-app
+              
           image: 'docker.io/bitnami/mariadb:10.3.22-debian-10-r60'
           imagePullPolicy: IfNotPresent
           livenessProbe:
