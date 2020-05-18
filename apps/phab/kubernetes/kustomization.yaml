@@ -1,5 +1,7 @@
 resources:
 - ns.yaml
+- phab.sa.yaml
+- phab.secrets-integrator.yaml
 - db.pv.yaml
 - db.configmap.yaml
 - db.secrets.yaml

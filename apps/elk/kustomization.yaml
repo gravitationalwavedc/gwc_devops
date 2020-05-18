@@ -1,0 +1,4 @@
+resources:
+  - pv.elasticsearch.yaml
+  - pv.kibana.yaml
+  - pv.beats.yaml
