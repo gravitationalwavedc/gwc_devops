@@ -42,9 +42,6 @@ spec:
             - '--weave=false'
           command:
             - /home/weave/scope
-          envFrom:
-            - secretRef:
-                name: weave-scope
           image: 'docker.io/weaveworks/scope:1.13.1'
           imagePullPolicy: IfNotPresent
           ports:

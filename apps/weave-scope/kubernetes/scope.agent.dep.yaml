@@ -48,9 +48,6 @@ spec:
             - 'weave-scope-app.weave.svc.cluster.local:80'
           command:
             - /home/weave/scope
-          envFrom:
-            - secretRef:
-                name: weave-scope
           image: 'docker.io/weaveworks/scope:1.13.1'
           imagePullPolicy: IfNotPresent
           ports:
