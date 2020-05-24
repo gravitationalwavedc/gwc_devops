@@ -12,7 +12,7 @@ spec:
       http:
         paths:
           - backend:
-              serviceName: kibana-kibana
+              serviceName: elk-kibana
               servicePort: http
             path: /
   tls:
