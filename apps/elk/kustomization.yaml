@@ -1,4 +1,4 @@
 resources:
   - ns.yaml
-  - elasticsearch.pv.yaml
+  - elk.pv.yaml
   - ing.yaml
