@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: weave-scope-agent
+  annotations:
+    cloud.weave.works/launcher-info: |-
+      {
+        "original-request": {
+          "url": "/k8s/v1.13/scope.yaml",
+          "date": "Sun May 24 2020 06:01:40 GMT+0000 (UTC)"
+        },
+        "email-address": "support@weave.works"
+      }
+  labels:
+    name: weave-scope-agent
+    app: weave-scope
+    weave-cloud-component: scope
+    weave-scope-component: agent
+  namespace: weave
+spec:
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      name: weave-scope-agent
+      app: weave-scope
+      weave-cloud-component: scope
+      weave-scope-component: agent
+  template:
+    metadata:
+      labels:
+        name: weave-scope-agent
+        app: weave-scope
+        weave-cloud-component: scope
+        weave-scope-component: agent
+    spec:
+      containers:
+        - name: scope-agent
+          args:
+            - '--mode=probe'
+            - '--probe-only'
+            - '--probe.kubernetes.role=host'
+            - '--probe.publish.interval=4500ms'
+            - '--probe.spy.interval=2s'
+            - '--probe.docker.bridge=docker0'
+            - '--probe.docker=true'
+            - '--weave=false'
+            - 'weave-scope-app.weave.svc.cluster.local:80'
+          command:
+            - /home/weave/scope
+          image: 'docker.io/weaveworks/scope:1.13.1'
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: scope-plugins
+              mountPath: /var/run/scope/plugins
+            - name: sys-kernel-debug
+              mountPath: /sys/kernel/debug
+            - name: docker-socket
+              mountPath: /var/run/docker.sock
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
+      hostPID: true
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
+      volumes:
+        - name: scope-plugins
+          hostPath:
+            path: /var/run/scope/plugins
+        - name: sys-kernel-debug
+          hostPath:
+            path: /sys/kernel/debug
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
+  updateStrategy:
+    type: RollingUpdate

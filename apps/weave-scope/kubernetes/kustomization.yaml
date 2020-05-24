@@ -1,0 +1,8 @@
+resources:
+  - ns.yaml
+  - scope.service-account.yaml
+  - scope.secrets-integrator.yaml
+  - scope.cluster-role.yaml
+  - scope.cr-binding.yaml
+  - scope.app.dep.yaml
+  - scope.app.svc.yaml
