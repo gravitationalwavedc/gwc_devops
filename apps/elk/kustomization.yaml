@@ -1,2 +1,3 @@
 resources:
   - ns.yaml
+  - elasticsearch.pv.yaml
