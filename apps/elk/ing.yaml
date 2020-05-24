@@ -13,8 +13,5 @@ spec:
         paths:
           - backend:
               serviceName: elk-kibana
-              servicePort: http
+              servicePort: 5601
             path: /
-  tls:
-  - hosts:
-    - elk.gw-cloud.org
