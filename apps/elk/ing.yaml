@@ -12,6 +12,6 @@ spec:
       http:
         paths:
           - backend:
-              serviceName: elasticstack
+              serviceName: kibana-kibana
               servicePort: 5601
             path: /
