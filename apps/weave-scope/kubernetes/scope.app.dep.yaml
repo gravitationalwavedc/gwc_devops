@@ -44,7 +44,7 @@ spec:
             - /home/weave/scope
           envFrom:
             - secretRef:
-                name: phabricator-app
+                name: weave-scope
           image: 'docker.io/weaveworks/scope:1.13.1'
           imagePullPolicy: IfNotPresent
           ports:
