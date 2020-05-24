@@ -17,4 +17,4 @@ spec:
             path: /
   tls:
   - hosts:
-    - phab.gw-cloud.org
+    - elk.gw-cloud.org
