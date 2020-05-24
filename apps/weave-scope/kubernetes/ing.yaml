@@ -1,19 +1,19 @@
+
 ---
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
+# Ingress
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
 metadata:
   name: weave-scope
   namespace: weave
-  annotations:
-    app.kubernetes.io/name: weave
-    app.kubernetes.io/instance: weave
 spec:
-  rules:
-  - host: weave.gw-cloud.org
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: weave-scope-app
-          servicePort: 80
+  host: weave.gw-cloud.org
+  upstreams:
+    - name: weave-scope-app
+      service: weave-scope-app
+      port: 80
+  routes:
+    - path: / 
+      action:
+        pass: weave-scope-app
 ...
