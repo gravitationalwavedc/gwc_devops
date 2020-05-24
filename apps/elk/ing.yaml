@@ -4,6 +4,9 @@ metadata:
   labels:
     app.kubernetes.io/instance: kibana
     app.kubernetes.io/name: kibana
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+    nginx.org/ssl-services: "elk-kibana"
+    ingress.kubernetes.io/ssl-passthrough: "true"
   name: kibana
   namespace: elasticstack
 spec:
@@ -13,5 +16,5 @@ spec:
         paths:
           - backend:
               serviceName: elk-kibana
-              servicePort: 5601
+              servicePort: 443
             path: /
