@@ -6,3 +6,4 @@ resources:
   - scope.cr-binding.yaml
   - scope.app.dep.yaml
   - scope.app.svc.yaml
+  - ing.yaml
