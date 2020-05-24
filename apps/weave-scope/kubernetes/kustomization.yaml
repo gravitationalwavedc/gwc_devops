@@ -5,5 +5,7 @@ resources:
   - scope.cluster-role.yaml
   - scope.cr-binding.yaml
   - scope.app.dep.yaml
+  - scope.agent.dep.yaml
+  - scope.agent.daemon.yaml
   - scope.app.svc.yaml
   - ing.yaml
