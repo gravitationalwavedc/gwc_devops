@@ -13,5 +13,8 @@ spec:
         paths:
           - backend:
               serviceName: kibana-kibana
-              servicePort: 5601
+              servicePort: http
             path: /
+  tls:
+  - hosts:
+    - phab.gw-cloud.org
