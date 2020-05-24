@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: kibana
+    app.kubernetes.io/name: kibana
+  name: kibana
+  namespace: elasticstack
+spec:
+  rules:
+    - host: elk.gw-cloud.org
+      http:
+        paths:
+          - backend:
+              serviceName: elasticstack
+              servicePort: 5601
+            path: /
