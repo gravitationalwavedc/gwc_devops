@@ -36,6 +36,7 @@ spec:
       containers:
         - name: scope-agent
           args:
+            - '--probe.no-controls=true'
             - '--mode=probe'
             - '--probe-only'
             - '--probe.kubernetes.role=host'
