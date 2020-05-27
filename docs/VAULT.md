@@ -1,8 +1,14 @@
-[Hashicorp Vault](https://www.vaultproject.io/docs)
----
+Hashicorp Vault
+---------------
+site: https://www.vaultproject.io/docs
 
-## 1. Installation
-### 1.1 Template Generation
+Contents
+--------
+* [Deployment](###Deployment)
+* [TODO](###TODO)
+
+### Deployment
+#### 1.1 Template Generation
 ##### Prerequisites
 * Helm must be installed locally
 * VERSION can be procured from [vault git release](https://github.com/hashicorp/vault-helm/releases)
@@ -27,6 +33,11 @@ helm template --namespace=vault $RELEASE $HELMGITREPO/$VERSION $HELMPARAM --outp
 ##### TBA
 #### 1.4 Unseal Vault
 ##### TBA
-
-###### TODO
+#### 1.5 Secrets Integrator
+1. Create Vault Secret Engine
+2. Declare and initialise Vault Secrets
+3. Declare and configure Vault Policy
+4. Create Vault Access > Auth Methods > Kubernetes > Roles
+5. 
+### TODO
 * [Secret Injection](https://www.hashicorp.com/blog/injecting-vault-secrets-into-kubernetes-pods-via-a-sidecar/)
