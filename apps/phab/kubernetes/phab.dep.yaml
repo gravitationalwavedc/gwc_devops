@@ -70,6 +70,8 @@ spec:
           volumeMounts:
             - mountPath: /bitnami/phabricator
               name: phabricator-data
+            - mountPath: /opt/bitnami/apache
+              name: phabricator-apache
         - command:
             - /bin/apache_exporter
             - '--scrape_uri'
@@ -101,3 +103,7 @@ spec:
         - name: phabricator-data
           persistentVolumeClaim:
             claimName: phabricator
+      volumes:
+        - name: phabricator-apache
+          persistentVolumeClaim:
+            claimName: phabricator-apache
