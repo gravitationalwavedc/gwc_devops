@@ -103,7 +103,6 @@ spec:
         - name: phabricator-data
           persistentVolumeClaim:
             claimName: phabricator
-      volumes:
         - name: phabricator-apache
           persistentVolumeClaim:
             claimName: phabricator-apache
