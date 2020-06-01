@@ -33,6 +33,8 @@ spec:
                 secretKeyRef:
                   key: MARIADB_ROOT_PASSWORD
                   name: phabricator-db-master
+            - name: PHABRICATOR_HOST
+              value: "https://phab.gw-cloud.org/"
           image: 'docker.io/bitnami/phabricator:2020.7.0-debian-10-r41'
           imagePullPolicy: IfNotPresent
           livenessProbe:
