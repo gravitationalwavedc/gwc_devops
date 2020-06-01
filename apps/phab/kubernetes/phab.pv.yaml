@@ -19,7 +19,7 @@ kind: PersistentVolume
 metadata:
   name: phabricator-apache
   labels:
-    volume: phabricator-apache 
+    volume: phabricator
 spec:
   accessModes:
   - ReadWriteMany

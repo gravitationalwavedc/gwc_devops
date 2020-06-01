@@ -70,6 +70,8 @@ spec:
           volumeMounts:
             - mountPath: /bitnami/phabricator
               name: phabricator-data
+            - mountPath: /opt/bitnami/apache2
+              name: phabricator-apache
         - command:
             - /bin/apache_exporter
             - '--scrape_uri'
