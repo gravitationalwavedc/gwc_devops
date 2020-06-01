@@ -72,7 +72,7 @@ spec:
           volumeMounts:
             - mountPath: /bitnami/phabricator
               name: phabricator-data
-            - mountPath: /vhosts
+            - mountPath: /opt/bitnami/apache/conf/vhosts
               name: phabricator-apache
         - command:
             - /bin/apache_exporter
