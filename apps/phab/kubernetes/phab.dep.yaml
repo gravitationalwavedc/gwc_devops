@@ -23,6 +23,9 @@ spec:
         app.kubernetes.io/name: phabricator
         helm.sh/chart: phabricator-9.0.17
     spec:
+      securityContext:
+        runAsUser: 0
+        fsGroup: 0
       containers:
         - envFrom:
             - secretRef:
@@ -70,7 +73,7 @@ spec:
           volumeMounts:
             - mountPath: /bitnami/phabricator
               name: phabricator-data
-            - mountPath: /opt/bitnami/apache2
+            - mountPath: /opt/bitnami/apache
               name: phabricator-apache
         - command:
             - /bin/apache_exporter
