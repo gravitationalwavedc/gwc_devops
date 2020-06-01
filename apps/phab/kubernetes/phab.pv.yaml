@@ -13,18 +13,3 @@ spec:
   nfs:
     server: 10.8.41.12
     path: /mnt/sharedfolder/gwdc/phabricator/data
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: phabricator-data
-  labels:
-    volume: phabricator-data 
-spec:
-  accessModes:
-  - ReadWriteMany
-  capacity:
-    storage: 8Gi
-  nfs:
-    server: 10.8.41.12
-    path: /mnt/sharedfolder/gwdc/phabricator/apache
