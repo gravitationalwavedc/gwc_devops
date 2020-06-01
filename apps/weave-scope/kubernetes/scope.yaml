@@ -47,7 +47,7 @@ items:
           - get
           - list
           - watch
-          - delete
+          # - delete
       - apiGroups:
           - ''
         resources:
