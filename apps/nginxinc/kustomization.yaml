@@ -7,5 +7,4 @@ bases:
   - ts-definition.yaml
   - rbac.yaml
   - nginx-ingress.yaml
-  - nginx-ingress.yaml
   - cm.yaml
