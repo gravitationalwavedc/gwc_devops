@@ -12,18 +12,3 @@ spec:
   selector:
     matchLabels:
       volume: phabricator
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: phabricator-apache
-  namespace: phabricator
-spec:
-  accessModes:
-  - ReadWriteMany
-  resources:
-    requests:
-      storage: 8Gi
-  selector:
-    matchLabels:
-      volume: phabricator-apache

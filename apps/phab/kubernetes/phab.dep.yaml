@@ -37,6 +37,8 @@ spec:
                   name: phabricator-db-master
             - name: PHABRICATOR_HOST
               value: "https://phab.gw-cloud.org/"
+            - name: PHP_MEMORY_LIMIT
+              value: "1G"
           image: 'docker.io/bitnami/phabricator:2020.7.0-debian-10-r41'
           imagePullPolicy: IfNotPresent
           livenessProbe:
@@ -72,8 +74,6 @@ spec:
           volumeMounts:
             - mountPath: /bitnami/phabricator
               name: phabricator-data
-            - mountPath: /vhosts
-              name: phabricator-apache
         - command:
             - /bin/apache_exporter
             - '--scrape_uri'
@@ -105,6 +105,3 @@ spec:
         - name: phabricator-data
           persistentVolumeClaim:
             claimName: phabricator
-        - name: phabricator-apache
-          persistentVolumeClaim:
-            claimName: phabricator-apache
