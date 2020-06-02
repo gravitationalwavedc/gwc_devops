@@ -1,9 +1,6 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: 0m
-    nginx.org/client-max-body-size: 0m
   labels:
     app.kubernetes.io/instance: phabricator
     app.kubernetes.io/managed-by: Tiller
