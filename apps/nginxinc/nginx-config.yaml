@@ -4,4 +4,4 @@ metadata:
   name: nginx-config
   namespace: nginx-ingress
 data:
-  proxy-body-size: 0m
+  client-max-body-size: 0m
