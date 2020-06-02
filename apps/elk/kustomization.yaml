@@ -1,4 +1,0 @@
-resources:
-  - ns.yaml
-  - elk.pv.yaml
-  - ing.yaml
