@@ -1,6 +1,6 @@
 resources:
   - ns.yaml
-  - secret.yaml
+  - secrets-integrator.yaml
   - home-pv.yaml
   - home-pvc.yaml
   - jcasc-config.yaml

@@ -128,7 +128,7 @@ data:
     <?xml version='1.1' encoding='UTF-8'?>
     <jenkins.model.JenkinsLocationConfiguration>
       <adminAddress></adminAddress>
-      <jenkinsUrl>http://jenkins.gw-cloud.org</jenkinsUrl>
+      <jenkinsUrl>http://ci.gw-cloud.org</jenkinsUrl>
     </jenkins.model.JenkinsLocationConfiguration>
   jenkins.CLI.xml: |-
     <?xml version='1.1' encoding='UTF-8'?>
