@@ -17,3 +17,6 @@ spec:
   resources:
     requests:
       storage: "8Gi"
+  selector:
+    matchLabels:
+      volume: jenkins-master-home
