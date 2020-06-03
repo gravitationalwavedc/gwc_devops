@@ -20,3 +20,4 @@ spec:
   selector:
     matchLabels:
       volume: jenkins-master-home
+      app.kubernetes.io/instance: jenkins
