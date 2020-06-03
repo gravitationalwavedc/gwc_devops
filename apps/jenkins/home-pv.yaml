@@ -5,7 +5,6 @@ metadata:
   name: jenkins-master-home
   labels:
     volume: jenkins-master-home
-    app.kubernetes.io/instance: jenkins
 spec:
   accessModes:
   - ReadWriteMany
