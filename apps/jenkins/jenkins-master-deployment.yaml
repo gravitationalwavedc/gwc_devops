@@ -3,13 +3,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stable-jenkins-1.27.0
+  name: stable-jenkins-1-27-0
   namespace: jenkins
   labels:
     "app.kubernetes.io/name": 'jenkins'
     "helm.sh/chart": "jenkins-1.27.0"
     "app.kubernetes.io/managed-by": "Helm"
-    "app.kubernetes.io/instance": "stable-jenkins-1.27.0"
+    "app.kubernetes.io/instance": "stable-jenkins-1-27-0"
     "app.kubernetes.io/component": "jenkins-master"
 spec:
   replicas: 1
@@ -18,21 +18,21 @@ spec:
   selector:
     matchLabels:
       "app.kubernetes.io/component": "jenkins-master"
-      "app.kubernetes.io/instance": "stable-jenkins-1.27.0"
+      "app.kubernetes.io/instance": "stable-jenkins-1-27-0"
   template:
     metadata:
       labels:
         "app.kubernetes.io/name": 'jenkins'
         "helm.sh/chart": "jenkins-1.27.0"
         "app.kubernetes.io/managed-by": "Helm"
-        "app.kubernetes.io/instance": "stable-jenkins-1.27.0"
+        "app.kubernetes.io/instance": "stable-jenkins-1-27-0"
         "app.kubernetes.io/component": "jenkins-master"
       annotations:
-        checksum/config: f602a36c91d493d192166475498aad547172be0a350f5e9f212f51851accfaf9
+        checksum/config: 41f8b11bd39947ebf2c5173a066b23926b44730c167cea7b3db43197e112dec9
     spec:
       securityContext:
         runAsUser: 0
-      serviceAccountName: "stable-jenkins-1.27.0"
+      serviceAccountName: "stable-jenkins-1-27-0"
       initContainers:
         - name: "copy-default-config"
           image: "jenkins/jenkins:lts"
@@ -42,12 +42,12 @@ spec:
             - name: ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: stable-jenkins-1.27.0
+                  name: stable-jenkins-1-27-0
                   key: jenkins-admin-password
             - name: ADMIN_USER
               valueFrom:
                 secretKeyRef:
-                  name: stable-jenkins-1.27.0
+                  name: stable-jenkins-1-27-0
                   key: jenkins-admin-user
           resources:
             limits:
@@ -88,12 +88,12 @@ spec:
             - name: ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: stable-jenkins-1.27.0
+                  name: stable-jenkins-1-27-0
                   key: jenkins-admin-password
             - name: ADMIN_USER
               valueFrom:
                 secretKeyRef:
-                  name: stable-jenkins-1.27.0
+                  name: stable-jenkins-1-27-0
                   key: jenkins-admin-user
             - name: CASC_JENKINS_CONFIG
               value: /var/jenkins_home/casc_configs
@@ -152,7 +152,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: LABEL
-              value: "stable-jenkins-1.27.0-jenkins-config"
+              value: "stable-jenkins-1-27-0-jenkins-config"
             - name: FOLDER
               value: "/var/jenkins_home/casc_configs"
             - name: NAMESPACE
@@ -176,13 +176,13 @@ spec:
         emptyDir: {}
       - name: jenkins-config
         configMap:
-          name: stable-jenkins-1.27.0
+          name: stable-jenkins-1-27-0
       - name: secrets-dir
         emptyDir: {}
       - name: plugin-dir
         emptyDir: {}
       - name: jenkins-home
         persistentVolumeClaim:
-          claimName: stable-jenkins-1.27.0
+          claimName: stable-jenkins-1-27-0
       - name: sc-config-volume
         emptyDir: {}

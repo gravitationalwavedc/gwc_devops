@@ -3,13 +3,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: stable-jenkins-1.27.0
+  name: stable-jenkins-1-27-0
   namespace: jenkins
   labels:
     "app.kubernetes.io/name": 'jenkins'
     "helm.sh/chart": "jenkins-1.27.0"
     "app.kubernetes.io/managed-by": "Helm"
-    "app.kubernetes.io/instance": "stable-jenkins-1.27.0"
+    "app.kubernetes.io/instance": "stable-jenkins-1-27-0"
     "app.kubernetes.io/component": "jenkins-master"
 data:
   config.xml: |-
@@ -42,7 +42,7 @@ data:
               <name>default</name>
               <instanceCap>2147483647</instanceCap>
               <idleMinutes>0</idleMinutes>
-              <label>stable-jenkins-1.27.0-jenkins-slave</label>
+              <label>stable-jenkins-1-27-0-jenkins-slave</label>
               <serviceAccount>default</serviceAccount>
               <nodeSelector></nodeSelector>
                 <nodeUsageMode>NORMAL</nodeUsageMode>
@@ -68,7 +68,7 @@ data:
                   <envVars>
                     <org.csanchez.jenkins.plugins.kubernetes.ContainerEnvVar>
                       <key>JENKINS_URL</key>
-                      <value>http://stable-jenkins-1.27.0.jenkins.svc.cluster.local:8080</value>
+                      <value>http://stable-jenkins-1-27-0.jenkins.svc.cluster.local:8080</value>
                     </org.csanchez.jenkins.plugins.kubernetes.ContainerEnvVar>
                   </envVars>
                 </org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
@@ -84,15 +84,15 @@ data:
           <serverUrl>https://kubernetes.default</serverUrl>
           <skipTlsVerify>false</skipTlsVerify>
           <namespace>jenkins</namespace>
-          <jenkinsUrl>http://stable-jenkins-1.27.0:8080</jenkinsUrl>
-          <jenkinsTunnel>stable-jenkins-1.27.0-agent:50000</jenkinsTunnel>
+          <jenkinsUrl>http://stable-jenkins-1-27-0:8080</jenkinsUrl>
+          <jenkinsTunnel>stable-jenkins-1-27-0-agent:50000</jenkinsTunnel>
           <containerCap>10</containerCap>
           <retentionTimeout>5</retentionTimeout>
           <connectTimeout>5</connectTimeout>
           <readTimeout>15</readTimeout>
           <podLabels>
             <org.csanchez.jenkins.plugins.kubernetes.PodLabel>
-              <key>jenkins/stable-jenkins-1.27.0-jenkins-slave</key>
+              <key>jenkins/stable-jenkins-1-27-0-jenkins-slave</key>
               <value>true</value>
             </org.csanchez.jenkins.plugins.kubernetes.PodLabel>
           </podLabels>
