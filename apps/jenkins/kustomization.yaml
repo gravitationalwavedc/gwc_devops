@@ -2,7 +2,7 @@ resources:
   - ns.yaml
   - secret.yaml
   - home-pvc.yaml
-  - jcasc-config
+  - jcasc-config.yaml
   - test-config.yaml
   - config.yaml
   - jenkins-master-deployment.yaml
