@@ -1,0 +1,13 @@
+resources:
+  - ns.yaml
+  - secret.yaml
+  - home-pvc.yaml
+  - jcasc-config
+  - test-config.yaml
+  - config.yaml
+  - jenkins-master-deployment.yaml
+  - jenkins-agent-svc.yaml
+  - jenkins-master-svc.yaml
+  - rbac.yaml
+  - service-account.yaml
+  - jenkins-master-ingress.yaml
