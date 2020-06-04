@@ -169,8 +169,6 @@ spec:
             - name: jenkins-home
               mountPath: /var/jenkins_home
 
-      imagePullSecrets:
-      - name: regcred
       volumes:
       - name: plugins
         emptyDir: {}
