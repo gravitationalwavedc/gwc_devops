@@ -23,7 +23,6 @@ spec:
         app.kubernetes.io/name: phabricator
         helm.sh/chart: phabricator-9.0.17
     spec:
-      dnsPolicy: ClusterFirst
       securityContext:
         runAsUser: 0
       containers:
