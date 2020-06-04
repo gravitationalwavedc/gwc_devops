@@ -69,7 +69,7 @@ spec:
               name: plugin-dir
       containers:
         - name: jenkins
-          image: "nexus.gw-cloud.org/docker/jenkins:0.1"
+          image: "nexus.gw-cloud.org/docker/jenkins:0.2"
           imagePullPolicy: "Always"
           args: [ "--argumentsRealm.passwd.$(ADMIN_USER)=$(ADMIN_PASSWORD)",  "--argumentsRealm.roles.$(ADMIN_USER)=admin", "--httpPort=8080"]
           env:
@@ -168,6 +168,7 @@ spec:
               mountPath: "/var/jenkins_home/casc_configs"
             - name: jenkins-home
               mountPath: /var/jenkins_home
+
       imagePullSecrets:
       - name: regcred
       volumes:
