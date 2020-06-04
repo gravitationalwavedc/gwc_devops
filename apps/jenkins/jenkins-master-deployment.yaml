@@ -168,7 +168,8 @@ spec:
               mountPath: "/var/jenkins_home/casc_configs"
             - name: jenkins-home
               mountPath: /var/jenkins_home
-
+      imagePullSecrets:
+        - name: regred
       volumes:
       - name: plugins
         emptyDir: {}
