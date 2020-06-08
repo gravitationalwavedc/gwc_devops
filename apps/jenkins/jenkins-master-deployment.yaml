@@ -170,20 +170,25 @@ spec:
               mountPath: /var/jenkins_home
       imagePullSecrets:
       - name: regcred
+      hostAliases:
+        - ip: "10.8.41.10"
+          hostnames:
+            - "phab.gw-cloud.org"
+            - "ci.gw-cloud.org"
       volumes:
-      - name: plugins
-        emptyDir: {}
-      - name: tmp
-        emptyDir: {}
-      - name: jenkins-config
-        configMap:
-          name: stable-jenkins-1-27-0
-      - name: secrets-dir
-        emptyDir: {}
-      - name: plugin-dir
-        emptyDir: {}
-      - name: jenkins-home
-        persistentVolumeClaim:
-          claimName: stable-jenkins-1-27-0
-      - name: sc-config-volume
-        emptyDir: {}
+        - name: plugins
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
+        - name: jenkins-config
+          configMap:
+            name: stable-jenkins-1-27-0
+        - name: secrets-dir
+          emptyDir: {}
+        - name: plugin-dir
+          emptyDir: {}
+        - name: jenkins-home
+          persistentVolumeClaim:
+            claimName: stable-jenkins-1-27-0
+        - name: sc-config-volume
+          emptyDir: {}

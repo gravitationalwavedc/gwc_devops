@@ -99,9 +99,13 @@ spec:
             timeoutSeconds: 1
           resources: null
       hostAliases:
-        - hostnames:
-            - status.localhost
-          ip: 127.0.0.1
+        - ip: "127.0.0.1"
+          hostnames:
+            - status.localhost          
+        - ip: "10.8.41.10"
+          hostnames:
+          - "phab.gw-cloud.org"
+          - "ci.gw-cloud.org"
       volumes:
         - name: phabricator-data
           persistentVolumeClaim:
