@@ -8,7 +8,6 @@ metadata:
     app.kubernetes.io/component: server
     app.kubernetes.io/instance: solr
     app.kubernetes.io/name: solr
-    statefulset.kubernetes.io/pod-name: solr-0
 spec:
   accessModes:
   - ReadWriteOnce
