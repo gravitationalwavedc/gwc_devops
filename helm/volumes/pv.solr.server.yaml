@@ -7,7 +7,9 @@ metadata:
   labels:
     app.kubernetes.io/component: server
     app.kubernetes.io/instance: solr
+    app.kubernetes.io/managed-by: Tiller
     app.kubernetes.io/name: solr
+    helm.sh/chart: solr-1.5.2
 spec:
   accessModes:
   - ReadWriteOnce
