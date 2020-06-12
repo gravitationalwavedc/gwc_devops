@@ -16,7 +16,7 @@ spec:
     storage: 20Gi
   nfs:
     server: 10.8.41.12
-    path: /mnt/sharedfolder/gwdc/solr/server
+    path: /mnt/sharedfolder/gwdc/solr/server/0
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -35,7 +35,7 @@ spec:
     storage: 20Gi
   nfs:
     server: 10.8.41.12
-    path: /mnt/sharedfolder/gwdc/solr/server
+    path: /mnt/sharedfolder/gwdc/solr/server/1
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -54,25 +54,7 @@ spec:
     storage: 20Gi
   nfs:
     server: 10.8.41.12
-    path: /mnt/sharedfolder/gwdc/solr/server
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: solr-server
-  namespace: solr
-  labels:
-    app.kubernetes.io/component: server
-    app.kubernetes.io/instance: solr
-    app.kubernetes.io/name: solr
-spec:
-  accessModes:
-  - ReadWriteOnce
-  capacity:
-    storage: 20Gi
-  nfs:
-    server: 10.8.41.12
-    path: /mnt/sharedfolder/gwdc/solr/server
+    path: /mnt/sharedfolder/gwdc/solr/server/2
 ---
 apiVersion: v1
 kind: PersistentVolume
