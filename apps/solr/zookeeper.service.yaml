@@ -1,0 +1,21 @@
+---
+# Source: solr/charts/zookeeper/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: incubator-solr-1-5-2-zookeeper
+  labels:
+    app: zookeeper
+    chart: zookeeper-2.1.3
+    release: incubator-solr-1-5-2
+    heritage: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - name: client
+      port: 2181
+      protocol: TCP
+      targetPort: client
+  selector:
+    app: zookeeper
+    release: incubator-solr-1-5-2
