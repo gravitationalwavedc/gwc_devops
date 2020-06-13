@@ -10,7 +10,6 @@ metadata:
     release: incubator-solr-1-5-2
     heritage: Helm
 spec:
-  clusterIP: None
   ports:
     - name: client
       port: 2181
