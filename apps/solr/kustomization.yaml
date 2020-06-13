@@ -2,6 +2,10 @@ resources:
   - ns.solr.yaml
   - pv.solr.server.yaml
   - config-script.yaml
+  - zookeeper.poddisruptionbudget.yaml
+  - zookeeper.service-headless.yaml
+  - zookeeper.service.yaml
+  - zookeeper.statefulset.yaml
   - poddisruptionbudget.yaml
   - solr-xml-configmap.yaml
   - statefulset.yaml
