@@ -1,0 +1,9 @@
+resources:
+  - ns.solr.yaml
+  - pv.solr.server.yaml
+  - config-script.yaml
+  - poddisruptionbudget.yaml
+  - solr-xml-configmap.yaml
+  - statefulset.yaml
+  - service-headless.yaml
+  - service.yaml
