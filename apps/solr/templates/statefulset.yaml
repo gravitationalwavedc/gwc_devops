@@ -17,7 +17,7 @@ spec:
       app.kubernetes.io/instance: "incubator-1-5-2"
       app.kubernetes.io/component: "server"
   serviceName: incubator-1-5-2-solr-headless
-  replicas: 1
+  replicas: 3
   updateStrategy:
         type: RollingUpdate
   template:

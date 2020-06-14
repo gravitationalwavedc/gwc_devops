@@ -12,7 +12,7 @@ metadata:
     component: server
 spec:
   serviceName: incubator-1-5-2-zookeeper-headless
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: zookeeper
@@ -38,8 +38,8 @@ spec:
           imagePullPolicy: IfNotPresent
           command: 
              - "/bin/bash"
-             - "-xec"
-             - "/config-scripts/run"
+          #   - "-xec"
+          #   - "/config-scripts/run"
           ports:
             - name: client
               containerPort: 2181
