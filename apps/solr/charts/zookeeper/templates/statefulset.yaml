@@ -12,7 +12,7 @@ metadata:
     component: server
 spec:
   serviceName: incubator-1-5-2-zookeeper-headless
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: zookeeper
