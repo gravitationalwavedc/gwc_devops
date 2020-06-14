@@ -38,8 +38,8 @@ spec:
           imagePullPolicy: IfNotPresent
           command: 
              - "/bin/bash"
-          #   - "-xec"
-          #   - "/config-scripts/run"
+             - "-xec"
+             - "/config-scripts/run"
           ports:
             - name: client
               containerPort: 2181
@@ -50,26 +50,26 @@ spec:
             - name: server
               containerPort: 2888
               protocol: TCP
-          # livenessProbe:
-          #   exec:
-          #     command:
-          #       - sh
-          #       - /config-scripts/ok
-          #   initialDelaySeconds: 20
-          #   periodSeconds: 30
-          #   timeoutSeconds: 5
-          #   failureThreshold: 2
-          #   successThreshold: 1
-          # readinessProbe:
-          #   exec:
-          #     command:
-          #       - sh
-          #       - /config-scripts/ready
-          #   initialDelaySeconds: 20
-          #   periodSeconds: 30
-          #   timeoutSeconds: 5
-          #   failureThreshold: 2
-          #   successThreshold: 1
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - /config-scripts/ok
+            initialDelaySeconds: 20
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 2
+            successThreshold: 1
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - /config-scripts/ready
+            initialDelaySeconds: 20
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 2
+            successThreshold: 1
           tty: true
           env:
             - name: ZK_REPLICAS
