@@ -3,10 +3,10 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: incubator-solr-1-5-2
+  name: incubator-1-5-2-solr
   labels:
     app.kubernetes.io/name: solr
-    app.kubernetes.io/instance: incubator-solr-1-5-2
+    app.kubernetes.io/instance: incubator-1-5-2
     app.kubernetes.io/managed-by: Helm
     helm.sh/chart: solr-1.5.2
     app.kubernetes.io/component: server
@@ -14,9 +14,9 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: "solr"
-      app.kubernetes.io/instance: "incubator-solr-1-5-2"
+      app.kubernetes.io/instance: "incubator-1-5-2"
       app.kubernetes.io/component: "server"
-  serviceName: incubator-solr-1-5-2-headless
+  serviceName: incubator-1-5-2-solr-headless
   replicas: 3
   updateStrategy:
         type: RollingUpdate
@@ -24,7 +24,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: "solr"
-        app.kubernetes.io/instance: "incubator-solr-1-5-2"
+        app.kubernetes.io/instance: "incubator-1-5-2"
         app.kubernetes.io/component: "server"
       annotations:
         {}
@@ -40,7 +40,7 @@ spec:
       volumes:
         - name: solr-xml
           configMap:
-            name: incubator-solr-1-5-2-config-map
+            name: incubator-1-5-2-solr-config-map
             items:
               - key: solr.xml
                 path: solr.xml
@@ -53,7 +53,7 @@ spec:
             - |
               COUNTER=0;
               while [  $COUNTER -lt 120 ]; do
-                addr=$(nslookup -type=a incubator-solr-1-5-2-zookeeper-headless | grep "Address:" | awk 'NR>1 {print $2}')
+                addr=$(nslookup -type=a incubator-1-5-2-zookeeper-headless | grep "Address:" | awk 'NR>1 {print $2}')
                 if [ ! -z "$addr" ]; then
                   while read -r line; do
                     echo $line;
@@ -78,7 +78,7 @@ spec:
           volumeMounts:
             - name: "solr-xml"
               mountPath: "/tmp"
-            - name: "incubator-solr-1-5-2-pvc"
+            - name: "incubator-1-5-2-solr-pvc"
               mountPath: "/tmp-config"
       containers:
         - name: solr
@@ -90,7 +90,7 @@ spec:
               cpu: "500m"
             limits:
               memory: "1Gi"
-              cpu: "1000m"
+              cpu: "1g"
           ports:
             - containerPort: 8983
               name: solr-client
@@ -106,9 +106,9 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: "SOLR_HOST"
-              value: "$(POD_HOSTNAME).incubator-solr-1-5-2-headless.solr"
+              value: "$(POD_HOSTNAME).incubator-1-5-2-solr-headless.solr"
             - name: "ZK_HOST"
-              value: "incubator-solr-1-5-2-zookeeper-headless:2181"
+              value: "incubator-1-5-2-zookeeper-headless:2181"
             - name: "SOLR_LOG_LEVEL"
               value: "INFO"
 
@@ -127,12 +127,12 @@ spec:
               path: /solr/admin/info/system
               port: 8983
           volumeMounts:
-            - name: incubator-solr-1-5-2-pvc
+            - name: incubator-1-5-2-solr-pvc
               mountPath: /opt/solr/server/home
 
   volumeClaimTemplates:
     - metadata:
-        name: incubator-solr-1-5-2-pvc
+        name: incubator-1-5-2-solr-pvc
         annotations:
           pv.beta.kubernetes.io/gid: "8983"
       spec:

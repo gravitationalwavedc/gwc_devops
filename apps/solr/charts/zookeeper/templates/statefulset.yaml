@@ -3,20 +3,20 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: incubator-solr-1-5-2-zookeeper
+  name: incubator-1-5-2-zookeeper
   labels:
     app: zookeeper
     chart: zookeeper-2.1.3
-    release: incubator-solr-1-5-2
+    release: incubator-1-5-2
     heritage: Helm
     component: server
 spec:
-  serviceName: incubator-solr-1-5-2-zookeeper-headless
+  serviceName: incubator-1-5-2-zookeeper-headless
   replicas: 3
   selector:
     matchLabels:
       app: zookeeper
-      release: incubator-solr-1-5-2
+      release: incubator-1-5-2
       component: server
   updateStrategy:
     type: RollingUpdate
@@ -24,7 +24,7 @@ spec:
     metadata:
       labels:
         app: zookeeper
-        release: incubator-solr-1-5-2
+        release: incubator-1-5-2
         component: server
     spec:
       terminationGracePeriodSeconds: 1800
@@ -100,7 +100,12 @@ spec:
             - name: ZOO_TICK_TIME
               value: "2000"
           resources:
-            {}
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1g"
           volumeMounts:
             - name: data
               mountPath: /data
@@ -109,7 +114,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: incubator-solr-1-5-2-zookeeper
+            name: incubator-1-5-2-zookeeper
             defaultMode: 0555
   volumeClaimTemplates:
     - metadata:

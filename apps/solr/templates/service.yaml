@@ -1,20 +1,22 @@
 ---
-# Source: solr/templates/service-headless.yaml
+# Source: solr/templates/service.yaml
 apiVersion: "v1"
 kind: "Service"
 metadata:
-  name: "incubator-solr-1-5-2-headless"
+  name: "incubator-1-5-2-solr-svc"
   labels:
     app.kubernetes.io/name: solr
-    app.kubernetes.io/instance: incubator-solr-1-5-2
+    app.kubernetes.io/instance: incubator-1-5-2
     app.kubernetes.io/managed-by: Helm
     helm.sh/chart: solr-1.5.2
+  annotations:
+    {}
 spec:
-  clusterIP: "None"
+  type: "ClusterIP"
   ports:
     - port: 8983
-      name: "solr-headless"
+      name: "solr-client"
   selector:
     app.kubernetes.io/name: "solr"
-    app.kubernetes.io/instance: "incubator-solr-1-5-2"
+    app.kubernetes.io/instance: "incubator-1-5-2"
     app.kubernetes.io/component: "server"
