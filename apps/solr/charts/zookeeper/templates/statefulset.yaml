@@ -70,6 +70,7 @@ spec:
             timeoutSeconds: 5
             failureThreshold: 2
             successThreshold: 1
+          tty: true
           env:
             - name: ZK_REPLICAS
               value: "3"
