@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/component: server
     app.kubernetes.io/instance: solr
     app.kubernetes.io/name: solr
-    statefulset.kubernetes.io/pod-name: solr-0
+    statefulset.kubernetes.io/pod-name: helm-solr-0
 spec:
   accessModes:
   - ReadWriteOnce
@@ -27,7 +27,7 @@ metadata:
     app.kubernetes.io/component: server
     app.kubernetes.io/instance: solr
     app.kubernetes.io/name: solr
-    statefulset.kubernetes.io/pod-name: solr-1
+    statefulset.kubernetes.io/pod-name: helm-solr-1
 spec:
   accessModes:
   - ReadWriteOnce
@@ -46,7 +46,7 @@ metadata:
     app.kubernetes.io/component: server
     app.kubernetes.io/instance: solr
     app.kubernetes.io/name: solr
-    statefulset.kubernetes.io/pod-name: solr-2
+    statefulset.kubernetes.io/pod-name: helm-solr-2
 spec:
   accessModes:
   - ReadWriteOnce
@@ -65,7 +65,7 @@ metadata:
     app: zookeeper
     component: server
     release: solr
-    statefulset.kubernetes.io/pod-name: solr-zookeeper-0
+    statefulset.kubernetes.io/pod-name: helm-solr-zookeeper-0
 spec:
   accessModes:
   - ReadWriteOnce
@@ -84,7 +84,7 @@ metadata:
     app: zookeeper
     component: server
     release: solr
-    statefulset.kubernetes.io/pod-name: solr-zookeeper-1
+    statefulset.kubernetes.io/pod-name: helm-solr-zookeeper-1
 spec:
   accessModes:
   - ReadWriteOnce
@@ -103,7 +103,7 @@ metadata:
     app: zookeeper
     component: server
     release: solr
-    statefulset.kubernetes.io/pod-name: solr-zookeeper-2
+    statefulset.kubernetes.io/pod-name: helm-solr-zookeeper-2
 spec:
   accessModes:
   - ReadWriteOnce

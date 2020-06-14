@@ -16,8 +16,6 @@ incubator/solr  1.5.2           8.4.0           A helm chart to install Apache S
 helm template incubator-1-5-2 incubator/solr \
 --set javaMem='-Xms512m -Xmx1g' \
 --set resources.requests.memory="512Mi" \
---set resources.requests.cpu="500m" \
---set resources.limits.memory="1Gi" \
---set resources.limits.cpu="1000m" \
+--set resources='"requests":{"cpu": "500m","memory": "512Mi"},"limits": {"cpu": "1G","memory":"1Gi"}' \
 -n solr --output-dir .
 ```
