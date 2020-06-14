@@ -3,10 +3,10 @@
 apiVersion: "v1"
 kind: "ConfigMap"
 metadata:
-  name: "incubator-1-5-2-solr-config-map"
+  name: "helm-solr-config-map"
   labels:
     app.kubernetes.io/name: solr
-    app.kubernetes.io/instance: incubator-1-5-2
+    app.kubernetes.io/instance: helm-solr
     app.kubernetes.io/managed-by: Helm
     helm.sh/chart: solr-1.5.2
 data:
