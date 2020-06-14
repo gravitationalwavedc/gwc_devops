@@ -1,13 +1,13 @@
 resources:
   - ns.solr.yaml
   - pv.solr.server.yaml
-  - charts/zookeeper/templates/service.yaml
-  - charts/zookeeper/templates/poddisruptionbudget.yaml
-  - charts/zookeeper/templates/service-headless.yaml
-  - charts/zookeeper/templates/statefulset.yaml
-  - charts/zookeeper/templates/config-script.yaml
-  - templates/service.yaml
-  - templates/poddisruptionbudget.yaml
-  - templates/service-headless.yaml
-  - templates/solr-xml-configmap.yaml
-  - templates/statefulset.yaml
+#  - charts/zookeeper/templates/service.yaml
+#  - charts/zookeeper/templates/poddisruptionbudget.yaml
+#  - charts/zookeeper/templates/service-headless.yaml
+#  - charts/zookeeper/templates/statefulset.yaml
+#  - charts/zookeeper/templates/config-script.yaml
+#  - templates/service.yaml
+#  - templates/poddisruptionbudget.yaml
+#  - templates/service-headless.yaml
+#  - templates/solr-xml-configmap.yaml
+#  - templates/statefulset.yaml
