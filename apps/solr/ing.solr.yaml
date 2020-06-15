@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: solr-helm
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: solr
+    helm.sh/chart: solr-1.5.2
+  name: solr
+  namespace: solr
+spec:
+  rules:
+  - host: solr.gw-cloud.org
+    http:
+      paths:
+      - backend:
+          serviceName: solr-helm-svc 
+          servicePort: 8983
+        path: /

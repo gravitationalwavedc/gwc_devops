@@ -1,6 +1,7 @@
 resources:
   - ns.solr.yaml
   - pv.solr.server.yaml
+  - ing.solr.yaml
 #  - charts/zookeeper/templates/service.yaml
 #  - charts/zookeeper/templates/poddisruptionbudget.yaml
 #  - charts/zookeeper/templates/service-headless.yaml
