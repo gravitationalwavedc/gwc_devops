@@ -15,6 +15,7 @@ incubator/solr  1.5.2           8.4.0           A helm chart to install Apache S
 # Generate solr templates
 helm template helm-solr incubator/solr \
 --set javaMem='-Xms512m -Xmx1g' \
---set resources.requests.memory="512Mi" \
+--set zookeeper.replicaCount="1" \
+--set replicaCount="1" \
 -n solr --output-dir .
 ```

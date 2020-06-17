@@ -12,7 +12,7 @@ metadata:
     component: server
 spec:
   serviceName: helm-solr-zookeeper-headless
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: zookeeper
@@ -72,7 +72,7 @@ spec:
             successThreshold: 1
           env:
             - name: ZK_REPLICAS
-              value: "3"
+              value: "1"
             - name: JMXAUTH
               value: "false"
             - name: JMXDISABLE

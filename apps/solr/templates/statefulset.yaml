@@ -17,7 +17,7 @@ spec:
       app.kubernetes.io/instance: "helm-solr"
       app.kubernetes.io/component: "server"
   serviceName: helm-solr-headless
-  replicas: 3
+  replicas: 1
   updateStrategy:
         type: RollingUpdate
   template:
@@ -85,8 +85,7 @@ spec:
           image: "solr:8.4.0"
           imagePullPolicy: IfNotPresent
           resources:
-            requests:
-              memory: 512Mi
+            {}
           ports:
             - containerPort: 8983
               name: solr-client
