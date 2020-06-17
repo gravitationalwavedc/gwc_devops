@@ -3,10 +3,10 @@
 apiVersion: "v1"
 kind: "Service"
 metadata:
-  name: "helm-solr-svc"
+  name: "solr-helm-svc"
   labels:
     app.kubernetes.io/name: solr
-    app.kubernetes.io/instance: helm-solr
+    app.kubernetes.io/instance: solr-helm
     app.kubernetes.io/managed-by: Helm
     helm.sh/chart: solr-1.5.2
   annotations:
@@ -18,5 +18,5 @@ spec:
       name: "solr-client"
   selector:
     app.kubernetes.io/name: "solr"
-    app.kubernetes.io/instance: "helm-solr"
+    app.kubernetes.io/instance: "solr-helm"
     app.kubernetes.io/component: "server"

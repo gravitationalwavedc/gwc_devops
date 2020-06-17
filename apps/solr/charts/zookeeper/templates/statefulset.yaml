@@ -3,20 +3,20 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: helm-solr-zookeeper
+  name: solr-helm-zookeeper
   labels:
     app: zookeeper
     chart: zookeeper-2.1.3
-    release: helm-solr
+    release: solr-helm
     heritage: Helm
     component: server
 spec:
-  serviceName: helm-solr-zookeeper-headless
+  serviceName: solr-helm-zookeeper-headless
   replicas: 1
   selector:
     matchLabels:
       app: zookeeper
-      release: helm-solr
+      release: solr-helm
       component: server
   updateStrategy:
     type: RollingUpdate
@@ -24,7 +24,7 @@ spec:
     metadata:
       labels:
         app: zookeeper
-        release: helm-solr
+        release: solr-helm
         component: server
     spec:
       terminationGracePeriodSeconds: 1800
@@ -109,7 +109,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: helm-solr-zookeeper
+            name: solr-helm-zookeeper
             defaultMode: 0555
   volumeClaimTemplates:
     - metadata:

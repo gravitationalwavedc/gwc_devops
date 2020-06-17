@@ -13,9 +13,12 @@ NAME            CHART VERSION   APP VERSION     DESCRIPTION
 incubator/solr  1.5.2           8.4.0           A helm chart to install Apache Solr: http://luc...
 
 # Generate solr templates
-helm template helm-solr incubator/solr \
+helm template solr-helm incubator/solr \
 --set javaMem='-Xms512m -Xmx1g' \
 --set zookeeper.replicaCount="1" \
 --set replicaCount="1" \
 -n solr --output-dir .
+
+# Move generated templates
+mv solr/* .
 ```
