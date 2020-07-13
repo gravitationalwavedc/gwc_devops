@@ -33,13 +33,13 @@ docker_rpm_keepcache: 0
 ## An obvious use case is allowing insecure-registry access to self hosted registries.
 ## Can be ipaddress and domain_name.
 ## example define 172.19.16.11 or mirror.registry.io
-# docker_insecure_registries:
-#   - mirror.registry.io
+#docker_insecure_registries:
+#   - nexus.gw-cloud.org
 #   - 172.19.16.11
 
 ## Add other registry,example China registry mirror.
-# docker_registry_mirrors:
-#   - https://registry.docker-cn.com
+#docker_registry_mirrors:
+#   - https://nexus.gw-cloud.org
 #   - https://mirror.aliyuncs.com
 
 ## If non-empty will override default system MountFlags value.
