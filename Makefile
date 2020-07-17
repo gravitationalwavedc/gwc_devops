@@ -1,6 +1,25 @@
 
 .PHONY: up down clean status
 
+include .makefile.env
+
+up: up_vm
+	@cd $(_PLATFORM) && vagrant ssh-config > $(PWD)/$(_VAGRANT_SSH_CONFIG)
+
+up_vm:
+	$(call vm_up, $(_PLATFORM))
+
+down: clean_dns
+	$(call vm_down, $(_PLATFORM))
+
+build:
+	$(call vm_build, $(_PLATFORM))
+
+clean:
+	$(call vm_clean, $(_PLATFORM))
+
+status: status_vm status_dns
+
 # VAGRANT SSH to Node
 define login_vagrant
 	cd $(1) && vagrant ssh
