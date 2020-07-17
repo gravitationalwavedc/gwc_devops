@@ -7,3 +7,4 @@ bases:
   - ts-definition.yaml
   - rbac.yaml
   - nginx-ingress.yaml
+  - nodeport.yaml
