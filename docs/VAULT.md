@@ -41,3 +41,4 @@ helm template --namespace=vault $RELEASE $HELMGITREPO/$VERSION $HELMPARAM --outp
 5. 
 ### TODO
 * [Secret Injection](https://www.hashicorp.com/blog/injecting-vault-secrets-into-kubernetes-pods-via-a-sidecar/)
+* [Kubernetes Authentication Method](https://learn.hashicorp.com/vault/kubernetes/sidecar)
