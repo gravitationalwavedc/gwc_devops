@@ -2,7 +2,7 @@
 global:
   api_version: 2
   network:
-    subnet: 10.8.41
+    subnet: 10.8.42
   plugins:
     - dns
     - vagrant-disksize
