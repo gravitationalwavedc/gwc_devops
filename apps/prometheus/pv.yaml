@@ -17,7 +17,7 @@ spec:
     storage: 2Gi
   nfs:
     server: 10.8.41.12
-    path: /mnt/sharedfolder/gwdc/prometheus/alertmanager
+    path: /mnt/sharedfolder/gwdc/monitoring/prometheus/alertmanager
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -34,4 +34,4 @@ spec:
     storage: 8Gi
   nfs:
     server: 10.8.41.12
-    path: /mnt/sharedfolder/gwdc/prometheus/server
+    path: /mnt/sharedfolder/gwdc/monitoring/prometheus/server
