@@ -51,6 +51,8 @@ spec:
         volumeMounts:
         - name: busybox-persistent-storage
           mountPath: /mnt/nfs
+      nodeSelector:
+        kubernetes.io/hostname: node5
       volumes:
       - name: busybox-persistent-storage
         persistentVolumeClaim:
