@@ -1,0 +1,57 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv0001
+  labels:
+    app: nfs-client
+spec:
+  capacity:
+    storage: 1000Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    path: /mnt/sharedfolder/
+    server: 10.8.41.11
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: busybox-pv-claim
+  labels:
+    app: nfs-client
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: nfs-client
+  labels:
+    app: nfs-client
+spec:
+  selector:
+    matchLabels:
+      app: nfs-client
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nfs-client
+    spec:
+      containers:
+      - image: busybox
+        name: busybox
+        command: ["sleep", "60000"]
+        volumeMounts:
+        - name: busybox-persistent-storage
+          mountPath: /mnt/nfs
+      volumes:
+      - name: busybox-persistent-storage
+        persistentVolumeClaim:
+          claimName: busybox-pv-claim
