@@ -3,7 +3,8 @@ resources:
   - vault-kubernetes-integrator.yaml
   - clusterrole.yaml
   - clusterrolebinding.yaml
-  - service.yaml
+  - serviceaccount.yaml
   - mysql/persistentvolume.yaml
   - mysql/persistentvolumeclaim.yaml
   - mysql/deployment.yaml
+  - service.yaml
