@@ -21,7 +21,7 @@ spec:
           provider "mysql" {
             endpoint = "mysql.db.svc.cluster.local:3306"
             username = "root"
-            password = "{{ .Data.MYSQL_ROOT_PASSWORD }}"
+            password = "{{ .Data.data.MYSQL_ROOT_PASSWORD }}"
           }
           {{- end }}
         vault.hashicorp.com/role: "db"
