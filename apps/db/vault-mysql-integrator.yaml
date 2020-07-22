@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: accounts-integrator-db
+  namespace: db
+  labels:
+    app: db-agent
+spec:
+  selector:
+    matchLabels:
+      app: db-mysql-integrator
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/agent-init-first: "true"
+        vault.hashicorp.com/agent-inject-secret-root.tf: "db/kv/mysql/deployment"
+        vault.hashicorp.com/agent-inject-template-root.tf: |
+          {{- with secret "db/kv/mysql/deployment" -}}
+          # Configure the MySQL provider
+          provider "mysql" {
+            endpoint = "mysql.db.svc.cluster.local:3306"
+            username = "root"
+            password = "{{ .Data.MYSQL_ROOT_PASSWORD }}"
+          }
+          {{- end }}
+        vault.hashicorp.com/role: "db"
+      labels:
+        app: db-mysql-integrator
+    spec:
+      restartPolicy: Always
+      serviceAccountName: db
+      containers:
+      - name: app
+        image: hashicorp/terraform:0.12.28
+        command: ["/bin/sh"]
+        resources:
+          {}
+        tty: true
+...
