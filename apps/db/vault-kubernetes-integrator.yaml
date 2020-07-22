@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: secrets-integrator-grafana
-  namespace: grafana
+  namespace: db
   labels:
     app: vault-agent
 spec:
