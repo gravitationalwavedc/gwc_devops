@@ -11,4 +11,3 @@ spec:
   selector:
     app: mysql
     tier: db
-  clusterIP: None
