@@ -8,3 +8,4 @@ resources:
   - mysql/persistentvolumeclaim.yaml
   - mysql/deployment.yaml
   - service.yaml
+  - vault-mysql-integrator.yaml
