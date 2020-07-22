@@ -11,5 +11,5 @@ spec:
   accessModes:
     - ReadWriteOnce
   nfs:
-    path: /mnt/sharedfolder/gwdc/mysql
+    path: /mnt/sharedfolder/gwdc/db/mysql
     server: 10.8.41.12
