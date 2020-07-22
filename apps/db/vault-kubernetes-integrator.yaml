@@ -16,23 +16,23 @@ spec:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/agent-init-first: "true"
         vault.hashicorp.com/agent-inject-secret-app.json: "db/kv/mysql"
-        #vault.hashicorp.com/agent-inject-template-app.json: |
-        #  {{- with secret "db/kv/mysql" -}}
-        #  {
-        #    "apiVersion": "v1",
-        #    "kind": "Secret",
-        #    "metadata": {
-        #      "name": "db-mysql"
-        #    },
-        #    "type": "Opaque",
-        #    "stringData": {
-        #    {{ range $k, $v := .Data.data }}
-        #    "{{ $k }}": "{{ $v }}",
-        #    {{ end }}
-        #    "end": "NULL"
-        #    }
-        #  }
-        #  {{- end }}
+        vault.hashicorp.com/agent-inject-template-app.json: |
+          {{- with secret "db/kv/mysql" -}}
+          {
+            "apiVersion": "v1",
+            "kind": "Secret",
+            "metadata": {
+              "name": "db-mysql"
+            },
+            "type": "Opaque",
+            "stringData": {
+            {{ range $k, $v := .Data.data }}
+            "{{ $k }}": "{{ $v }}",
+            {{ end }}
+            "end": "NULL"
+            }
+          }
+          {{- end }}
         vault.hashicorp.com/role: "db"
       labels:
         app: vault-kube-integrator
