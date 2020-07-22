@@ -24,7 +24,7 @@ spec:
         resources: {}
         envFrom:
           - secretRef:
-              name: gwcloud-auth
+              name: db-mysql
         ports:
         - containerPort: 3306
           name: mysql
