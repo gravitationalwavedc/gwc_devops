@@ -24,6 +24,35 @@ spec:
             password = "{{ .Data.data.MYSQL_ROOT_PASSWORD }}"
           }
           {{- end }}
+        vault.hashicorp.com/agent-inject-secret-accounts.tf: "db/kv/mysql/accounts"
+        vault.hashicorp.com/agent-inject-template-accounts.tf: |
+          {{- with secret "db/kv/mysql/roles" -}}
+          {{ range $k, $v := .Data.data }}
+          # DECLARE AND INITIALISE DB APPLICATION ACCOUNTS
+          resource "mysql_user" "user_{{ %k }}" {
+            user               = "{{ %k }}"
+            host               = "%"
+            plaintext_password = "{{ %v }}"
+          }
+
+          resource "mysql_role" "owner_{{ %k }}" {
+            name = "owner_{{ %k }}"
+          }
+
+          resource "mysql_grant" "grant_{{ %k }}" {
+            role       = "${mysql_role.owner_{{ %k }}.name}"
+            database   = "${mysql_user.user_{{ %k }}.user}"
+            privileges = ["ALL"]
+          }
+
+          resource "mysql_grant" "grant_{{ %k }}" {
+            user     = "${mysql_user.user_{{ %k }}.user}"
+            host     = "${mysql_user.user_{{ %k }}.host}"
+            database = "${mysql_user.user_{{ %k }}.user}"
+            roles    = ["${mysql_role.owner_{{ %k }}.name}"]
+          }
+          {{- end }}
+          {{- end }}
         vault.hashicorp.com/role: "db"
       labels:
         app: db-mysql-integrator
@@ -34,6 +63,13 @@ spec:
       - name: app
         image: hashicorp/terraform:0.12.28
         command: ["/bin/sh"]
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            args:
+            - -c
+            - "cd /vault/secrets/ && terraform apply -auto-approve"
         resources:
           {}
         tty: true
