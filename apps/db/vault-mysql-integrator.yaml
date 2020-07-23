@@ -26,7 +26,7 @@ spec:
           {{- end }}
         vault.hashicorp.com/agent-inject-secret-accounts.tf: "db/kv/mysql/accounts"
         vault.hashicorp.com/agent-inject-template-accounts.tf: |
-          {{- with secret "db/kv/mysql/roles" -}}
+          {{- with secret "db/kv/mysql/accounts" -}}
           {{ range $k, $v := .Data.data }}
           # DECLARE AND INITIALISE DB APPLICATION ACCOUNTS
           resource "mysql_user" "user_{{ $k }}" {
@@ -63,12 +63,12 @@ spec:
       - name: app
         image: hashicorp/terraform:0.12.28
         command: ["/bin/sh"]
-        # livenessProbe:
-        #   exec:
-        #     command:
-        #     - /bin/sh 
-        #     - -c 
-        #     - "cd /vault/secrets/ && terraform init && terraform apply -auto-approve"
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh 
+            - -c 
+            - "cd /vault/secrets/ && terraform init && terraform apply -auto-approve"
         resources:
           {}
         tty: true
