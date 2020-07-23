@@ -31,6 +31,9 @@ spec:
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
+        - name: mysql-config-volume ## specify volume name
+          mountPath: /etc/mysql/conf.d/default_auth.cnf ## path to mount file
+          subPath: default_auth ## name of config
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
