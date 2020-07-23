@@ -68,7 +68,7 @@ spec:
             command:
             - /bin/sh 
             - -c 
-            - "cd /vault/secrets/ && terraform apply -auto-approve"
+            - "cd /vault/secrets/ && terraform init && terraform apply -auto-approve"
         resources:
           {}
         tty: true
