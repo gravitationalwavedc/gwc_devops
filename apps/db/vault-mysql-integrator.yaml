@@ -66,10 +66,7 @@ spec:
         livenessProbe:
           exec:
             command:
-            - /bin/sh
-            args:
-            - -c
-            - "cd /vault/secrets/ && terraform apply -auto-approve"
+            - /bin/sh -c "cd /vault/secrets/ && terraform apply -auto-approve"
         resources:
           {}
         tty: true
