@@ -39,5 +39,5 @@ spec:
         persistentVolumeClaim:
           claimName: mysql-db-pv-claim
       - name: mysql-config-volume ## volume name
-      configMap:
-        name: mysql-config ## name of ConfigMap
+        configMap:
+          name: mysql-config ## name of ConfigMap
