@@ -27,30 +27,44 @@ spec:
         vault.hashicorp.com/agent-inject-secret-accounts.tf: "db/kv/mysql/accounts"
         vault.hashicorp.com/agent-inject-template-accounts.tf: |
           {{- with secret "db/kv/mysql/accounts" -}}
-          {{ range $k, $v := .Data.data }}
           # DECLARE AND INITIALISE DB APPLICATION ACCOUNTS
+          {{ range $k, $v := .Data.data }}
+          #----------------------------------------------------------
+          # Create a User
           resource "mysql_user" "user_{{ $k }}" {
             user               = "{{ $k }}"
             host               = "%"
             plaintext_password = "{{ $v }}"
           }
-
-          resource "mysql_role" "owner_{{ $k }}" {
-            name = "owner_{{ $k }}"
-          }
-
-          resource "mysql_grant" "grant_{{ $k }}" {
-            role       = "${mysql_role.owner_{{ $k }}.name}"
+          
+          # Granting Privileges to a User
+          resource "mysql_grant" "grant_user_{{ $k }}" {
+            user       = "${mysql_user.user_{{ $k }}.user}"
+            host       = "${mysql_user.user_{{ $k }}.host}"
             database   = "${mysql_user.user_{{ $k }}.user}"
             privileges = ["ALL"]
           }
 
-          resource "mysql_grant" "grant_owner_{{ $k }}" {
-            user     = "${mysql_user.user_{{ $k }}.user}"
-            host     = "${mysql_user.user_{{ $k }}.host}"
-            database = "${mysql_user.user_{{ $k }}.user}"
-            roles    = ["${mysql_role.owner_{{ $k }}.name}"]
-          }
+          # Ideal Solution Below
+          # # Create Role Owner
+          # resource "mysql_role" "owner_{{ $k }}" {
+          #   name = "owner_{{ $k }}"
+          # }
+          # # Granting Privileges to a Role
+          # resource "mysql_grant" "grant_{{ $k }}" {
+          #   role       = "${mysql_role.owner_{{ $k }}.name}"
+          #   database   = "${mysql_user.user_{{ $k }}.user}"
+          #   privileges = ["ALL"]
+          # }
+          # # Adding a Role to a User
+          # resource "mysql_grant" "grant_owner_{{ $k }}" {
+          #   user     = "${mysql_user.user_{{ $k }}.user}"
+          #   host     = "${mysql_user.user_{{ $k }}.host}"
+          #   database = "${mysql_user.user_{{ $k }}.user}"
+          #   roles    = ["${mysql_role.owner_{{ $k }}.name}"]
+          # }
+
+
           {{- end }}
           {{- end }}
         vault.hashicorp.com/role: "db"
