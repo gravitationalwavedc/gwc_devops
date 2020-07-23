@@ -31,7 +31,7 @@ spec:
           # DECLARE AND INITIALISE DB APPLICATION ACCOUNTS
           resource "mysql_user" "user_{{ %k }}" {
             user               = "{{ %k }}"
-            host               = "%"
+            host               = "\%"
             plaintext_password = "{{ %v }}"
           }
 
