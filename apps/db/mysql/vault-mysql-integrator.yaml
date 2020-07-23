@@ -68,7 +68,7 @@ spec:
             command:
             - /bin/sh 
             - -c 
-            - "rsync -avp /vault/secrets/* /mnt/secrets && cd /mnt/secrets/ && terraform init && terraform apply -auto-approve"
+            - "cp /vault/secrets/* /mnt/secrets && cd /mnt/secrets/ && terraform init && terraform apply -auto-approve"
         resources:
           {}
         tty: true
