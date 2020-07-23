@@ -45,7 +45,7 @@ spec:
             privileges = ["ALL"]
           }
 
-          resource "mysql_grant" "grant_{{ $k }}" {
+          resource "mysql_grant" "grant_owner_{{ $k }}" {
             user     = "${mysql_user.user_{{ $k }}.user}"
             host     = "${mysql_user.user_{{ $k }}.host}"
             database = "${mysql_user.user_{{ $k }}.user}"
