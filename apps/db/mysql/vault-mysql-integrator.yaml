@@ -68,13 +68,13 @@ spec:
             command:
             - /bin/sh 
             - -c 
-            - "cd /vault/secrets/ && terraform init && terraform apply -auto-approve"
+            - "rsync -avp /vault/secrets/* /mnt/secrets && cd /mnt/secrets/ && terraform init && terraform apply -auto-approve"
         resources:
           {}
         tty: true
         volumeMounts:
         - name: tf-mysql-persistent-storage
-          mountPath: /vault/secrets
+          mountPath: /mnt/secrets
       volumes:
       - name: tf-mysql-persistent-storage
         persistentVolumeClaim:
