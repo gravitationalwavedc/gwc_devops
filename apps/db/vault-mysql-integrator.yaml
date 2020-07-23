@@ -63,12 +63,12 @@ spec:
       - name: app
         image: hashicorp/terraform:0.12.28
         command: ["/bin/sh"]
-        livenessProbe:
-          exec:
-            command:
-            - /bin/sh 
-            - -c 
-            - "cd /vault/secrets/ && terraform init && terraform apply -auto-approve"
+        # livenessProbe:
+        #   exec:
+        #     command:
+        #     - /bin/sh 
+        #     - -c 
+        #     - "cd /vault/secrets/ && terraform init && terraform apply -auto-approve"
         resources:
           {}
         tty: true
