@@ -26,3 +26,4 @@ data:
     provisioning = /etc/grafana/provisioning
     [server]
     domain = grafana.gw-cloud.org
+    root_url = https://grafana.gw-cloud.org
