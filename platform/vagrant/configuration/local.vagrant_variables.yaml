@@ -1,15 +1,17 @@
 # GLOBAL VAGRANT SETTINGS
 global:
   api_version: 2
-  network:
-    subnet: 10.8.42
+  provider: virtualbox
   plugins:
-    - dns
     - vagrant-disksize
+    - vagrant-sshfs
 
 nodes:  
-# KUBERNETES
+  # KUBERNETES
   kubernetes:
+    address:
+      - network: 10.8.41
+        host: 100
     cpu: 4
     bootstrap: |
       # SWAP off
@@ -21,18 +23,22 @@ nodes:
       # NFS client
       apt-get -y install nfs-client
     disks:
-      size: 60
       instances: 1
+      size: 60
     gui: false
     instances: 3
     memory: 6144
     mounts: []
-    network: 100
     node_prefix: k8s
     os: ubuntu/bionic64
 
   # PROXY
   proxy:
+    address:
+      - network: 10.8.41
+        host: 100
+      - network: 10.8.40
+        host: 10
     cpu: 1
     bootstrap: |
       # Set Timezone
@@ -48,13 +54,13 @@ nodes:
     instances: 1
     memory: 256
     mounts:
-      - host: ./data/conf.d
+      - host: ./mnt/nginx/conf.d
         guest: /etc/nginx/conf.d/
-      - host: ./data/certs
+      - host: ./data/nginx/certs
         guest: /etc/letsencrypt/live/
-      - host: ./data/mnt/sharedfolder
-        guest: /mnt/sharedfolder
-      - host: ./init
+      - host: ./data/sharedfolder
+        guest: /mnt/sharedfolder/
+      - host: ./mnt/proxy/init
         guest: /mnt/init/
     network: 10
     node_prefix: local
