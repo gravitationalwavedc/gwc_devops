@@ -115,13 +115,16 @@ spec:
           image: 'docker.io/bitnami/phabricator:2020.7.0-debian-10-r41'
           imagePullPolicy: IfNotPresent
           resources: {}
-          command: ["bash"]
-          args:
-          - "-c"
-          - "/opt/bitnami/phabricator/bin/worker"
-          - "cancel"
-          - "--class"
-          - "FeedPublisherHTTPWorker"
+          livenessProbe:
+            failureThreshold: 6
+            command:
+            - "/opt/bitnami/phabricator/bin/worker"
+            - "cancel"
+            - "--class"
+            - "FeedPublisherHTTPWorker"            
+            initialDelaySeconds: 1800
+            periodSeconds: 1800
+          command: ["bash"]          
           volumeMounts:
             - mountPath: /bitnami/phabricator
               name: phabricator-data
