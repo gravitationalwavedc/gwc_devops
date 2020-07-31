@@ -97,10 +97,7 @@ spec:
               port: metrics
             initialDelaySeconds: 5
             timeoutSeconds: 1
-          resources: null   
-          volumeMounts:
-            - mountPath: /bitnami/phabricator
-              name: phabricator-data
+          resources: null
       hostAliases:
         - ip: "127.0.0.1"
           hostnames:
