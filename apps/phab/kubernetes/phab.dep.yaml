@@ -98,6 +98,35 @@ spec:
             initialDelaySeconds: 5
             timeoutSeconds: 1
           resources: null
+        - envFrom:
+            - secretRef:
+                name: phabricator-app
+          env:
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: MARIADB_ROOT_PASSWORD
+                  name: phabricator-db-master
+            - name: PHABRICATOR_HOST
+              value: "https://phab.gw-cloud.org/"
+            - name: PHP_MEMORY_LIMIT
+              value: "1G"
+          name: slack-cleanup
+          image: 'docker.io/bitnami/phabricator:2020.7.0-debian-10-r41'
+          imagePullPolicy: IfNotPresent
+          resources: {}
+          volumeMounts:
+            - mountPath: /bitnami/phabricator
+              name: phabricator-data
+          livenessProbe:
+            failureThreshold: 6
+            command:
+            - "/opt/bitnami/phabricator/bin/worker"
+            - "cancel"
+            - "--class"
+            - "FeedPublisherHTTPWorker"            
+            initialDelaySeconds: 1800
+            periodSeconds: 1800
       hostAliases:
         - ip: "127.0.0.1"
           hostnames:
