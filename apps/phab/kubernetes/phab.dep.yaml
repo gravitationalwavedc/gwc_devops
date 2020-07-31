@@ -111,6 +111,7 @@ spec:
               value: "https://phab.gw-cloud.org/"
             - name: PHP_MEMORY_LIMIT
               value: "1G"
+          name: slack-cleanup
           image: 'docker.io/bitnami/phabricator:2020.7.0-debian-10-r41'
           imagePullPolicy: IfNotPresent
           resources: {}
