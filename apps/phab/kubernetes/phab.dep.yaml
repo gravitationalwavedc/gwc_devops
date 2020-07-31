@@ -75,8 +75,6 @@ spec:
           volumeMounts:
             - mountPath: /bitnami/phabricator
               name: phabricator-data
-            - mountPath: /opt/binami/
-              name: binami-binaries
         - command:
             - /bin/apache_exporter
             - '--scrape_uri'
@@ -100,26 +98,32 @@ spec:
             initialDelaySeconds: 5
             timeoutSeconds: 1
           resources: null
-        - image: busybox
-          name: slack-cleaner
-          livenessProbe:
-            exec:
-              command:
-                - /opt/bitnami/phabricator/bin/worker
-                - cancel
-                - --class
-                - FeedPublisherHTTPWorker
-            failureThreshold: 3
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            successThreshold: 1
-            timeoutSeconds: 1
+        - envFrom:
+            - secretRef:
+                name: phabricator-app
+          env:
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: MARIADB_ROOT_PASSWORD
+                  name: phabricator-db-master
+            - name: PHABRICATOR_HOST
+              value: "https://phab.gw-cloud.org/"
+            - name: PHP_MEMORY_LIMIT
+              value: "1G"
+          image: 'docker.io/bitnami/phabricator:2020.7.0-debian-10-r41'
+          imagePullPolicy: IfNotPresent
+          resources: {}
+          command: ["bash"]
+          args:
+          - "-c"
+          - "/opt/bitnami/phabricator/bin/worker"
+          - "cancel"
+          - "--class"
+          - "FeedPublisherHTTPWorker"
           volumeMounts:
             - mountPath: /bitnami/phabricator
               name: phabricator-data
-            - mountPath: /opt/binami/
-              name: binami-binaries
-
       hostAliases:
         - ip: "127.0.0.1"
           hostnames:
