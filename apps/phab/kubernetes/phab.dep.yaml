@@ -101,6 +101,7 @@ spec:
         - envFrom:
             - secretRef:
                 name: phabricator-app
+          command: ["bash"]
           env:
             - name: MARIADB_PASSWORD
               valueFrom:
@@ -118,15 +119,16 @@ spec:
           volumeMounts:
             - mountPath: /bitnami/phabricator
               name: phabricator-data
-          livenessProbe:
-            failureThreshold: 6
+          livenessProbe:            
             exec:
-            - "/opt/bitnami/phabricator/bin/worker"
-            - "cancel"
-            - "--class"
-            - "FeedPublisherHTTPWorker"            
+              command:
+                - "/opt/bitnami/phabricator/bin/worker"
+                - "cancel"
+                - "--class"
+                - "FeedPublisherHTTPWorker"            
             initialDelaySeconds: 1800
             periodSeconds: 1800
+            failureThreshold: 6
       hostAliases:
         - ip: "127.0.0.1"
           hostnames:
