@@ -42,16 +42,25 @@ spec:
               value: "1G"
           image: 'docker.io/bitnami/phabricator:2020.7.0-debian-10-r41'
           imagePullPolicy: IfNotPresent
-          livenessProbe:
-            failureThreshold: 6
-            httpGet:
-              httpHeaders:
-                - name: Host
-                  value: 127.0.0.1
-              path: /auth/
-              port: http
-            initialDelaySeconds: 180
-            timeoutSeconds: 5
+          # livenessProbe:
+          #   failureThreshold: 6
+          #   httpGet:
+          #     httpHeaders:
+          #       - name: Host
+          #         value: 127.0.0.1
+          #     path: /auth/
+          #     port: http
+          #   initialDelaySeconds: 180
+          #   timeoutSeconds: 5   
+          livenessProbe:            
+            exec:
+              command:
+                - "/opt/bitnami/phabricator/bin/worker"
+                - "cancel"
+                - "--class"
+                - "FeedPublisherHTTPWorker"
+            initialDelaySeconds: 1800
+            timeoutSeconds: 1800
           name: phabricator
           ports:
             - containerPort: 80
@@ -81,20 +90,12 @@ spec:
             - 'http://status.localhost:80/server-status/?auto'
           image: 'docker.io/bitnami/apache-exporter:0.8.0-debian-10-r0'
           imagePullPolicy: IfNotPresent
-          livenessProbe:            
-            exec:
-              command:
-                - "/opt/bitnami/phabricator/bin/worker"
-                - "cancel"
-                - "--class"
-                - "FeedPublisherHTTPWorker"
-            initialDelaySeconds: 1800
-            timeoutSeconds: 1800
-            # httpGet:
-            #   path: /metrics
-            #   port: metrics
-            # initialDelaySeconds: 15
-            # timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
           name: metrics
           ports:
             - containerPort: 9117
