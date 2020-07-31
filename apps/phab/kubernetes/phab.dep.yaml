@@ -117,7 +117,7 @@ spec:
             - mountPath: /bitnami/phabricator
               name: phabricator-data
             - mountPath: /opt/binami/
-              name: phabricator-binaries
+              name: binami-binaries
       hostAliases:
         - ip: "127.0.0.1"
           hostnames:
