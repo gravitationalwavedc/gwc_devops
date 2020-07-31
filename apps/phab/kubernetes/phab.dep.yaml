@@ -42,25 +42,25 @@ spec:
               value: "1G"
           image: 'docker.io/bitnami/phabricator:2020.7.0-debian-10-r41'
           imagePullPolicy: IfNotPresent
-          # livenessProbe:
-          #   failureThreshold: 6
-          #   httpGet:
-          #     httpHeaders:
-          #       - name: Host
-          #         value: 127.0.0.1
-          #     path: /auth/
-          #     port: http
-          #   initialDelaySeconds: 180
-          #   timeoutSeconds: 5   
-          livenessProbe:            
-            exec:
-              command:
-                - "/opt/bitnami/phabricator/bin/worker"
-                - "cancel"
-                - "--class"
-                - "FeedPublisherHTTPWorker"
-            initialDelaySeconds: 1800
-            timeoutSeconds: 1800
+          livenessProbe:
+            failureThreshold: 6
+            httpGet:
+              httpHeaders:
+                - name: Host
+                  value: 127.0.0.1
+              path: /auth/
+              port: http
+            initialDelaySeconds: 180
+            timeoutSeconds: 5   
+          # livenessProbe:            
+          #   exec:
+          #     command:
+          #       - "/opt/bitnami/phabricator/bin/worker"
+          #       - "cancel"
+          #       - "--class"
+          #       - "FeedPublisherHTTPWorker"
+          #   initialDelaySeconds: 1800
+          #   timeoutSeconds: 1800
           name: phabricator
           ports:
             - containerPort: 80
