@@ -93,6 +93,9 @@ up: up_vm up_dns status_dns
 bootstrap_mounts:
 	$(call bootstrap_mount,$(_VAGRANT)/$(_SHAREDFOLDER))
 	$(call bootstrap_mount,$(_VAGRANT)/$(_NGINX_CERTS))
+	$(call bootstrap_mount,$(_VAGRANT)/$(_GRAFANA))
+	$(call bootstrap_mount,$(_VAGRANT)/$(_PROMETHEUS_SERVER))
+	$(call bootstrap_mount,$(_VAGRANT)/$(_PROMETHEUS_ALERTMANAGER))
 
 validate_vm:
 	$(call vagrant_func,Validate Vagrant Specification(s),validate)
@@ -109,6 +112,9 @@ build:
 clean:
 	$(call vagrant_func,Destroying Vagrant VM(s),destroy)
 
+force_clean:
+	$(call vagrant_func,Destroying Vagrant VM(s),destroy --force)
+
 status: status_vm status_dns
 
 status_vm:
@@ -120,10 +126,16 @@ provision_vm:
 reload_vm:
 	$(call vagrant_func,Reloading Vagrant VM(s),reload)
 
+# PROXY
+# =====
+reload_proxy:
+	$(call vm_exec,$(_VAGRANT_SSH_CONFIG),local-1,sudo /mnt/init/nfs.sh)
+	$(call vm_exec,$(_VAGRANT_SSH_CONFIG),local-1,sudo /mnt/init/nginx.sh)
+
 # DNS COMMANDS
 # ============
 up_dns:
-	$(call bootstrap_mount, $(_PIHOLE))
+	$(call bootstrap_mount, $(_COMPOSE)/$(_PIHOLE))
 	$(call compose_func,DOCKER COMPOSE DNS UP,up -d)
 
 down_dns:
@@ -140,13 +152,13 @@ logs_dns:
 
 # LOGIN
 # =====
-login_ng: init-ssh
+login_ng:
 	$(call login_ssh, $(_VAGRANT_SSH_CONFIG), local-1)
-login_1: init-ssh
+login_1:
 	$(call login_ssh, $(_VAGRANT_SSH_CONFIG), k8s-1)
-login_2: init-ssh
+login_2:
 	$(call login_ssh, $(_VAGRANT_SSH_CONFIG), k8s-2)
-login_3: init-ssh
+login_3:
 	$(call login_ssh, $(_VAGRANT_SSH_CONFIG), k8s-3)
 
 # SUBMODULES
@@ -190,13 +202,13 @@ ifneq ($(wildcard $(_K8S_INVENTORY_DST)),"")
 		declare -a IPS=$(_K8S_IPS) && \
 		CONFIG_FILE=$(_K8S_CONFIG) python3 $(_K8S_BUILDER_SCRIPT) $${IPS[@]} \
 	)
-	rsync -a -v $(_K8S_INVENTORY_SRC)/$(_K8S) $(_K8S_INVENTORY_DST)/
+	rsync -a -v $(_K8S_INVENTORY_SRC)/$(_K8S) $(_INVENTORY)/
 else
 	@echo "$(_K8S_INVENTORY_DST) exist"
 	@ls -l $(_K8S_INVENTORY_DST)
 endif
 
-kubespray_install: kubespray_exec kubespray_post
+kubespray_install: kubespray_exec kubespray_post kube_config
 kubespray_exec:
 	$(call venv_exec, \
 		$(_K8S_VENV), \
