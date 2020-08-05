@@ -8,5 +8,9 @@ resources:
   - mysql/persistentvolume.yaml
   - mysql/persistentvolumeclaim.yaml
   - mysql/deployment.yaml
+  - mysqldump/persistentvolume.yaml
+  - mysqldump/templates/cron.yaml
+  - mysqldump/templates/pvc.yaml
+  - mysqldump/templates/configmap.yaml
   - service.yaml
   - mysql/vault-mysql-integrator.yaml
