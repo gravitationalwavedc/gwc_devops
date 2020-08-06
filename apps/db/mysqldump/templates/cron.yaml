@@ -31,7 +31,7 @@ spec:
           - name: mysql-backup
             image: "nexus.gw-cloud.org/docker/mysqldump:0.1"
             imagePullPolicy: "IfNotPresent"
-            command: ["/bin/bash", "/scripts/backup.sh"]
+            command: ["/bin/sh", "/scripts/backup.sh"]
             envFrom:
             - configMapRef:
                 name: "stable-mysqldump-2-6-0"
