@@ -44,6 +44,8 @@ spec:
               mountPath: /scripts
             resources:
                     {}
+          imagePullSecrets:
+          - name: regcred
           restartPolicy: Never
           volumes:
           - name: backups
