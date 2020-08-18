@@ -164,7 +164,7 @@ spec:
               mountPath: "/var/jenkins_home/casc_configs"
             - name: jenkins-home
               mountPath: /var/jenkins_home
-    imagePullSecrets:
+      imagePullSecrets:
       - name: regcred
       hostAliases:
         - ip: "10.8.41.10"
