@@ -36,7 +36,7 @@ spec:
       serviceAccountName: "stable-jenkins-2-1-0"
       initContainers:
         - name: "copy-default-config"
-          image: "jenkins/jenkins:lts"
+          image: "jenkins/jenkins:lts-jdk"
           imagePullPolicy: "Always"
           command: [ "sh", "/var/jenkins_config/apply_config.sh" ]
           env:
@@ -68,7 +68,7 @@ spec:
               name: plugin-dir
       containers:
         - name: jenkins
-          image: "jenkins/jenkins:lts"
+          image: "jenkins/jenkins:lts-jdk"
           imagePullPolicy: "Always"
           args: [ "--argumentsRealm.passwd.$(ADMIN_USER)=$(ADMIN_PASSWORD)",  "--argumentsRealm.roles.$(ADMIN_USER)=admin", "--httpPort=8080"]
           env:
