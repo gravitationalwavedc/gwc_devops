@@ -19,7 +19,11 @@ data:
         loggedInUsersCanDoAnything:
           allowAnonymousRead: false
       securityRealm:
-        legacy
+        githubWebUri: "https://github.com"
+        githubApiUri: "https://api.github.com"
+        clientID: ${CI_GITHUB_ID}
+        clientSecret: "${CI_GITHUB_SECRET}"
+        oauthScopes: "read:org,user:email"
       disableRememberMe: false
       remotingSecurity:
         enabled: true
