@@ -19,7 +19,7 @@ data:
         loggedInUsersCanDoAnything:
           allowAnonymousRead: false
       securityRealm:
-        github
+        github:
           githubWebUri: "https://github.com"
           githubApiUri: "https://api.github.com"
           clientID: ${CI_GITHUB_SECRET}
