@@ -50,6 +50,16 @@ spec:
                 secretKeyRef:
                   name: stable-jenkins-2-1-0
                   key: jenkins-admin-user
+            - name: CI_GITHUB_ID
+              valueFrom:
+                secretKeyRef:
+                  name: stable-jenkins-2-1-0
+                  key: CI_GITHUB_ID
+            - name: CI_GITHUB_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: stable-jenkins-2-1-0
+                  key: CI_GITHUB_SECRET
           resources:
             limits:
               cpu: 2000m
