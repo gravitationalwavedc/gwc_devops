@@ -1,4 +1,4 @@
-bases:
+resources:
   - ns-and-sa.yaml
   - default-server-secret.yaml
   - nginx-config.yaml
