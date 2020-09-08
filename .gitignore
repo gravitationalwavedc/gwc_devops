@@ -2,3 +2,4 @@
 **/.vagrant
 **/data
 *.config
+**/.DS_Store
