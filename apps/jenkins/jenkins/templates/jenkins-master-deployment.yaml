@@ -3,13 +3,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stable-jenkins-1-27-0
+  name: stable-jenkins-2-1-0
   namespace: jenkins
   labels:
     "app.kubernetes.io/name": 'jenkins'
-    "helm.sh/chart": "jenkins-1.27.0"
+    "helm.sh/chart": "jenkins-2.1.0"
     "app.kubernetes.io/managed-by": "Helm"
-    "app.kubernetes.io/instance": "stable-jenkins-1-27-0"
+    "app.kubernetes.io/instance": "stable-jenkins-2-1-0"
     "app.kubernetes.io/component": "jenkins-master"
 spec:
   replicas: 1
@@ -18,36 +18,37 @@ spec:
   selector:
     matchLabels:
       "app.kubernetes.io/component": "jenkins-master"
-      "app.kubernetes.io/instance": "stable-jenkins-1-27-0"
+      "app.kubernetes.io/instance": "stable-jenkins-2-1-0"
   template:
     metadata:
       labels:
         "app.kubernetes.io/name": 'jenkins'
-        "helm.sh/chart": "jenkins-1.27.0"
+        "helm.sh/chart": "jenkins-2.1.0"
         "app.kubernetes.io/managed-by": "Helm"
-        "app.kubernetes.io/instance": "stable-jenkins-1-27-0"
+        "app.kubernetes.io/instance": "stable-jenkins-2-1-0"
         "app.kubernetes.io/component": "jenkins-master"
       annotations:
-        checksum/config: 9b854be7300839f2e06b7695612b22a36560e2d627c23ab3c71c36b603282a01
+        checksum/config: c70eba882f2017fb2dac837647411059546c7171177602213acc1d31ca708b5b
     spec:
       securityContext:
-        runAsUser: 0
-      serviceAccountName: "stable-jenkins-1-27-0"
+        runAsUser: 1000
+        fsGroup: 1000
+      serviceAccountName: "stable-jenkins-2-1-0"
       initContainers:
         - name: "copy-default-config"
-          image: "jenkins/jenkins:lts"
+          image: "jenkins/jenkins:lts-jdk11"
           imagePullPolicy: "Always"
           command: [ "sh", "/var/jenkins_config/apply_config.sh" ]
           env:
             - name: ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: stable-jenkins-1-27-0
+                  name: stable-jenkins-2-1-0
                   key: jenkins-admin-password
             - name: ADMIN_USER
               valueFrom:
                 secretKeyRef:
-                  name: stable-jenkins-1-27-0
+                  name: stable-jenkins-2-1-0
                   key: jenkins-admin-user
           resources:
             limits:
@@ -63,8 +64,6 @@ spec:
               name: jenkins-home
             - mountPath: /var/jenkins_config
               name: jenkins-config
-            - mountPath: /usr/share/jenkins/ref/secrets/
-              name: secrets-dir
             - mountPath: /var/jenkins_plugins
               name: plugin-dir
       containers:
@@ -88,15 +87,25 @@ spec:
             - name: ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: stable-jenkins-1-27-0
+                  name: stable-jenkins-2-1-0
                   key: jenkins-admin-password
             - name: ADMIN_USER
               valueFrom:
                 secretKeyRef:
-                  name: stable-jenkins-1-27-0
+                  name: stable-jenkins-2-1-0
                   key: jenkins-admin-user
             - name: CASC_JENKINS_CONFIG
               value: /var/jenkins_home/casc_configs
+            - name: CI_GITHUB_ID
+              valueFrom:
+                secretKeyRef:
+                  name: stable-jenkins-2-1-0
+                  key: CI_GITHUB_ID
+            - name: CI_GITHUB_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: stable-jenkins-2-1-0
+                  key: CI_GITHUB_SECRET
           ports:
             - containerPort: 8080
               name: http
@@ -135,9 +144,6 @@ spec:
             - mountPath: /var/jenkins_config
               name: jenkins-config
               readOnly: true
-            - mountPath: /usr/share/jenkins/ref/secrets/
-              name: secrets-dir
-              readOnly: false
             - mountPath: /usr/share/jenkins/ref/plugins/
               name: plugin-dir
               readOnly: false
@@ -152,7 +158,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: LABEL
-              value: "stable-jenkins-1-27-0-jenkins-config"
+              value: "stable-jenkins-2-1-0-jenkins-config"
             - name: FOLDER
               value: "/var/jenkins_home/casc_configs"
             - name: NAMESPACE
@@ -176,19 +182,17 @@ spec:
             - "phab.gw-cloud.org"
             - "ci.gw-cloud.org"
       volumes:
-        - name: plugins
-          emptyDir: {}
-        - name: tmp
-          emptyDir: {}
-        - name: jenkins-config
-          configMap:
-            name: stable-jenkins-1-27-0
-        - name: secrets-dir
-          emptyDir: {}
-        - name: plugin-dir
-          emptyDir: {}
-        - name: jenkins-home
-          persistentVolumeClaim:
-            claimName: stable-jenkins-1-27-0
-        - name: sc-config-volume
-          emptyDir: {}
+      - name: plugins
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}
+      - name: jenkins-config
+        configMap:
+          name: stable-jenkins-2-1-0
+      - name: plugin-dir
+        emptyDir: {}
+      - name: jenkins-home
+        persistentVolumeClaim:
+          claimName: stable-jenkins-2-1-0
+      - name: sc-config-volume
+        emptyDir: {}

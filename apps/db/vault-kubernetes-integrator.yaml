@@ -33,6 +33,18 @@ spec:
             }
           }
           {{- end }}
+        vault.hashicorp.com/agent-inject-secret-regcred.yaml: "nexus/kv/docker"
+        vault.hashicorp.com/agent-inject-template-regcred.yaml: |
+          {{- with secret "nexus/kv/docker" -}}
+          apiVersion: v1
+          kind: Secret
+          data:
+            .dockerconfigjson: {{ .Data.data.auth }}
+          metadata:
+            namespace: db
+            name: regcred
+          type: kubernetes.io/dockerconfigjson
+          {{- end }}
         vault.hashicorp.com/role: "db"
       labels:
         app: vault-kube-integrator
