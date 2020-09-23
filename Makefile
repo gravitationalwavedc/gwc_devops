@@ -213,7 +213,7 @@ kubespray_exec:
 	$(call venv_exec, \
 		$(_K8S_VENV), \
 		pip install ansible; \
-		ansible-playbook -i $(_K8S_INVENTORY_DST)/hosts.yaml \
+		export ANSIBLE_HOST_KEY_CHECKING='False' && ansible-playbook -i $(_K8S_INVENTORY_DST)/hosts.yaml \
 		$(_KUBESPRAY_PATH)/cluster.yml -u vagrant -b -v --private-key=$(_VAGRANT_KEY) \
 	)
 
