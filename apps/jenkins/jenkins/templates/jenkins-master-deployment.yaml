@@ -179,8 +179,8 @@ spec:
       hostAliases:
         - ip: "10.8.41.10"
           hostnames:
-            - "phab.gw-cloud.org"
-            - "ci.gw-cloud.org"
+            - "phab.gwdc.org.au"
+            - "ci.gwdc.org.au"
       volumes:
       - name: plugins
         emptyDir: {}

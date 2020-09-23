@@ -18,4 +18,4 @@ spec:
       - backend:
           serviceName: stable-jenkins-2-1-0
           servicePort: 8080
-    host: "ci.gw-cloud.org"
+    host: "ci.gwdc.org.au"
