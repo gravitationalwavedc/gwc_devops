@@ -13,7 +13,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
 spec:
   rules:
-    - host: grafana.gw-cloud.org
+    - host: mon.gwdc.org.au
       http:
         paths:
 

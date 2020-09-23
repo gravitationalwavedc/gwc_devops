@@ -25,5 +25,5 @@ data:
     plugins = /var/lib/grafana/plugins
     provisioning = /etc/grafana/provisioning
     [server]
-    domain = grafana.gw-cloud.org
-    root_url = https://grafana.gw-cloud.org
+    domain = mon.gwdc.org.au
+    root_url = https://mon.gwdc.org.au
