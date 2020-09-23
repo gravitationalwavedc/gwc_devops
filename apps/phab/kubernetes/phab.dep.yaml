@@ -37,7 +37,7 @@ spec:
                   key: MARIADB_ROOT_PASSWORD
                   name: phabricator-db-master
             - name: PHABRICATOR_HOST
-              value: "https://phab.gwdc.org.au"
+              value: "https://phab.adacs.org.au"
             - name: PHP_MEMORY_LIMIT
               value: "1G"
           image: 'docker.io/bitnami/phabricator:2020.7.0-debian-10-r41'
@@ -113,7 +113,7 @@ spec:
             - status.localhost          
         - ip: "10.8.41.10"
           hostnames:
-          - "phab.gwdc.org.au"
+          - "phab.adacs.org.au"
           - "ci.gwdc.org.au"
       volumes:
         - name: phabricator-data
