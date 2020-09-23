@@ -10,7 +10,7 @@ metadata:
   namespace: phabricator
 spec:
   rules:
-    - host: phab.adacs.org.au
+    - host: phab.gw-cloud.org
       http:
         paths:
           - backend:
@@ -19,4 +19,4 @@ spec:
             path: /
   tls:
   - hosts:
-    - phab.adacs.org.au
+    - phab.gw-cloud.org
