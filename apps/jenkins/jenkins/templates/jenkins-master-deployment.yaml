@@ -179,7 +179,7 @@ spec:
       hostAliases:
         - ip: "10.8.41.10"
           hostnames:
-            - "phab.gwdc.org.au"
+            - "phab.adacs.org.au"
             - "ci.gwdc.org.au"
       volumes:
       - name: plugins
