@@ -1,10 +1,11 @@
 resources:
   - ns-and-sa.yaml
+  - rbac.yaml
   - default-server-secret.yaml
-  - nginx-config.yaml
+  - ingress-class.yaml
   - vs-definition.yaml
   - vsr-definition.yaml
   - ts-definition.yaml
-  - rbac.yaml
+  - policy-definition.yaml
+  - nginx-config.yaml
   - nginx-ingress.yaml
-  - nodeport.yaml
