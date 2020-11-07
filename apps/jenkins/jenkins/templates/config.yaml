@@ -25,8 +25,10 @@ data:
     yes n | cp -i /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/;
   plugins.txt: |-
     kubernetes:1.25.7
-    workflow-job:2.39
+    workflow-job:2.40
     workflow-aggregator:2.6
     credentials-binding:1.22
     git:4.2.2
+    github-oauth:0.33
+    matrix-auth:2.6.4
     configuration-as-code:1.41
