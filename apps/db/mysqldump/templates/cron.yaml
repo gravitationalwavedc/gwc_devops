@@ -29,7 +29,7 @@ spec:
         spec:
           containers:
           - name: mysql-backup
-            image: "nexus.gw-cloud.org/docker/mysqldump:0.1"
+            image: "nexus.gwdc.org.au/docker/mysqldump:0.1"
             imagePullPolicy: "IfNotPresent"
             command: ["/bin/sh", "/scripts/backup.sh"]
             envFrom:
