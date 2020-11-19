@@ -176,11 +176,6 @@ spec:
               mountPath: /var/jenkins_home
       imagePullSecrets:
       - name: regcred
-      hostAliases:
-        - ip: "10.8.41.10"
-          hostnames:
-            - "phab.adacs.org.au"
-            - "ci.gwdc.org.au"
       volumes:
       - name: plugins
         emptyDir: {}
