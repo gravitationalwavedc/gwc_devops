@@ -110,11 +110,7 @@ spec:
       hostAliases:
         - ip: "127.0.0.1"
           hostnames:
-            - status.localhost          
-        - ip: "10.8.41.10"
-          hostnames:
-          - "phab.adacs.org.au"
-          - "ci.gwdc.org.au"
+            - status.localhost
       volumes:
         - name: phabricator-data
           persistentVolumeClaim:
