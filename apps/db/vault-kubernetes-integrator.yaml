@@ -65,6 +65,10 @@ spec:
               image: 'bitnami/kubectl:1.17.4'
               imagePullPolicy: IfNotPresent
               name: db-vault-kube-integrator
+          imagePullSecrets:
+            - name: regcred
+          restartPolicy: Never
+          serviceAccountName: db
   schedule: '* * * * *'
   successfulJobsHistoryLimit: 1
 ...
