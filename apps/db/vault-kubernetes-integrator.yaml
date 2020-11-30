@@ -1,72 +1,70 @@
 ---
-apiVersion: apps/v1
-kind: Deployment
+# Source: mysqldump/templates/cron.yaml
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
   name: secrets-integrator-db
   namespace: db
   labels:
     app: vault-agent
 spec:
-  selector:
-    matchLabels:
-      app: vault-kube-integrator
-  template:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 5
+  jobTemplate:
     metadata:
-      annotations:
-        vault.hashicorp.com/agent-inject: "true"
-        vault.hashicorp.com/agent-init-first: "true"
-        vault.hashicorp.com/agent-inject-secret-app.json: "db/kv/mysql/deployment"
-        vault.hashicorp.com/agent-inject-template-app.json: |
-          {{- with secret "db/kv/mysql/deployment" -}}
-          {
-            "apiVersion": "v1",
-            "kind": "Secret",
-            "metadata": {
-              "name": "db-mysql"
-            },
-            "type": "Opaque",
-            "stringData": {
-            {{ range $k, $v := .Data.data }}
-            "{{ $k }}": "{{ $v }}",
-            {{ end }}
-            "end": "NULL"
-            }
-          }
-          {{- end }}
-        vault.hashicorp.com/agent-inject-secret-regcred.yaml: "nexus/kv/docker"
-        vault.hashicorp.com/agent-inject-template-regcred.yaml: |
-          {{- with secret "nexus/kv/docker" -}}
-          apiVersion: v1
-          kind: Secret
-          data:
-            .dockerconfigjson: {{ .Data.data.auth }}
-          metadata:
-            namespace: db
-            name: regcred
-          type: kubernetes.io/dockerconfigjson
-          {{- end }}
-        vault.hashicorp.com/role: "db"
       labels:
         app: vault-kube-integrator
     spec:
-      restartPolicy: Always
-      securityContext:
-        runAsUser: 0
-      serviceAccountName: db
-      containers:
-      - name: app
-        image: bitnami/kubectl:1.17.4
-        command: ["bash"]
-        resources:
-          {}
-        livenessProbe:
-          exec:
-            command:
-            - kubectl
-            - apply 
-            - -f
-            - /vault/secrets/
-          initialDelaySeconds: 5
-          periodSeconds: 5
-        tty: true
+      backoffLimit: 1
+      template:
+        metadata:
+          annotations:
+            vault.hashicorp.com/agent-inject: "true"
+            vault.hashicorp.com/agent-init-first: "true"
+            vault.hashicorp.com/agent-inject-secret-app.json: "db/kv/mysql/deployment"
+            vault.hashicorp.com/agent-inject-template-app.json: |
+              {{- with secret "db/kv/mysql/deployment" -}}
+              {
+                "apiVersion": "v1",
+                "kind": "Secret",
+                "metadata": {
+                  "name": "db-mysql"
+                },
+                "type": "Opaque",
+                "stringData": {
+                {{ range $k, $v := .Data.data }}
+                "{{ $k }}": "{{ $v }}",
+                {{ end }}
+                "end": "NULL"
+                }
+              }
+              {{- end }}
+            vault.hashicorp.com/agent-inject-secret-regcred.yaml: "nexus/kv/docker"
+            vault.hashicorp.com/agent-inject-template-regcred.yaml: |
+              {{- with secret "nexus/kv/docker" -}}
+              apiVersion: v1
+              kind: Secret
+              data:
+                .dockerconfigjson: {{ .Data.data.auth }}
+              metadata:
+                namespace: db
+                name: regcred
+              type: kubernetes.io/dockerconfigjson
+              {{- end }}
+            vault.hashicorp.com/agent-pre-populate-only: 'true'
+            vault.hashicorp.com/role: "db"
+          labels:
+            app: vault-kube-integrator
+        spec:
+          containers:
+            - command:
+                - kubectl
+                - apply
+                - '-f'
+                - /vault/secrets/
+              image: 'bitnami/kubectl:1.17.4'
+              imagePullPolicy: IfNotPresent
+              name: db-vault-kube-integrator
+  schedule: '* * * * *'
+  successfulJobsHistoryLimit: 1
 ...
