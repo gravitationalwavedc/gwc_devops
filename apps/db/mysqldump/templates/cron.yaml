@@ -85,7 +85,7 @@ spec:
             command:
             - "/bin/sh"
             - "-c"
-            - "which rdiff-backup"
+            - "ls /backup"
             envFrom: []
             volumeMounts: []
             resources:
@@ -93,4 +93,7 @@ spec:
           imagePullSecrets:
           - name: regcred
           restartPolicy: Never
-          volumes: []
+          volumes:
+          - name: backups
+            persistentVolumeClaim:
+              claimName: stable-mysqldump-2-6-0
