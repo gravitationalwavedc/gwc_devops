@@ -65,7 +65,7 @@ metadata:
     app.kubernetes.io/instance: rdiff-backup
     app.kubernetes.io/version: "2.4.1"
 spec:
-  schedule: "0 0 * * *"
+  schedule: "0 * * * *"
   successfulJobsHistoryLimit: 7
   failedJobsHistoryLimit: 7
   concurrencyPolicy: Forbid
