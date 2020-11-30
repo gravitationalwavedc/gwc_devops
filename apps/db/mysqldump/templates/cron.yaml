@@ -84,17 +84,22 @@ spec:
             command:
             - "/bin/sh"
             - "-c"
-            - "ls /backup"
+            - "ls /live /onsite"
             envFrom: []
             volumeMounts:
-            - name: backups
-              mountPath: /backup
+            - name: nfs1
+              mountPath: /live
+            - name: nfs2
+              mountPath: /onsite
             resources:
                     {}
           imagePullSecrets:
           - name: regcred
           restartPolicy: Never
           volumes:
-          - name: backups
+          - name: nfs1
             persistentVolumeClaim:
               claimName: stable-mysqldump-2-6-0
+          - name: nfs2
+            persistentVolumeClaim:
+              claimName: rdiff-backup-0-1-0

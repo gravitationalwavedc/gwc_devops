@@ -15,3 +15,16 @@ spec:
   resources:
     requests:
       storage: 8Gi
+---
+# Source: mysqldump/templates/pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rdiff-backup-0-1-0
+  labels:
+    app.kubernetes.io/name: rdiff-backup
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 8Gi
