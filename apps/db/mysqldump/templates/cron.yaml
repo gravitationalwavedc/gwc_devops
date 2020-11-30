@@ -61,8 +61,8 @@ kind: CronJob
 metadata:
   name: rdiff-backup-0-1
   labels:
-    app.kubernetes.io/name: mysqldump
-    app.kubernetes.io/instance: stable-mysqldump-2-6-0
+    app.kubernetes.io/name: rdiff-backup
+    app.kubernetes.io/instance: stable-rdiff-backup-0-1
 spec:
   schedule: "0 * * * *"
   successfulJobsHistoryLimit: 7
@@ -71,7 +71,7 @@ spec:
   jobTemplate:
     metadata:
       labels:
-        app: mysqldump
+        app: rdiff-backup
         cronjob-name: rdiff-backup-0-1
     spec:
       backoffLimit: 1
