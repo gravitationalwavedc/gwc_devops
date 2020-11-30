@@ -54,3 +54,43 @@ spec:
           - name: mysql-backup-script
             configMap:
               name: stable-mysqldump-2-6-0-script
+---
+# Source: mysqldump/templates/cron.yaml
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: rdiff-backup-0-1
+  labels:
+    app.kubernetes.io/name: rdiff-backup
+    app.kubernetes.io/instance: rdiff-backup
+    app.kubernetes.io/version: "2.4.1"
+spec:
+  schedule: "0 0 * * *"
+  successfulJobsHistoryLimit: 7
+  failedJobsHistoryLimit: 7
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    metadata:
+      labels:
+        app: rdiff-backup
+        cronjob-name: rdiff-backup
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          containers:
+          - name: rdiff-backup
+            image: "nexus.gwdc.org.au/docker/rdiff-backup:0.1"
+            imagePullPolicy: "IfNotPresent"
+            command:
+            - "/bin/sh"
+            - "-c"
+            - "which rdiff-backup"
+            envFrom: []
+            volumeMounts: []
+            resources:
+                    {}
+          imagePullSecrets:
+          - name: regcred
+          restartPolicy: Never
+          volumes: []
