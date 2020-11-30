@@ -87,7 +87,9 @@ spec:
             - "-c"
             - "ls /backup"
             envFrom: []
-            volumeMounts: []
+            volumeMounts:
+            - name: backups
+              mountPath: /backup
             resources:
                     {}
           imagePullSecrets:
