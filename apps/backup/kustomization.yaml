@@ -1,5 +1,6 @@
 resources:
 - ns.yaml
+- rbac.yaml
 - configmap.yaml
 - pv.yaml
 - pvc.yaml

@@ -7,15 +7,15 @@ metadata:
     app: backup
 data:
   backup.sh: |-
-    #!/bin/bash
-    if [[ -z "$SOURCE" ] && [ -z "$BACKUP" ]]
+    #!/bin/sh
+    if [ -z "$SOURCE" ] && [ -z "$BACKUP" ]
     then
-      # TEST COMMANDS
+      echo "ENV vars SOURCE or BACKUP are not initialised";
+    else
+      # rdiff-backup
+      rdiff-backup --print-statistics $SOURCE $BACKUP;
       df -h $SOURCE;
       df -h $BACKUP;
-      # cp -vrfp $SOURCE $BACKUP;
-    else
-      echo "ENV vars SOURCE or BACKUP are not initialised";
     fi
 ---
 apiVersion: v1

@@ -1,3 +1,56 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  labels:
+    app: vault-agent
+    app.kubernetes.io/instance: backup
+  name: secrets-integrator-backup
+  namespace: backup
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    metadata:
+      labels:
+        app: vault-kube-integrator
+    spec:
+      backoffLimit: 1
+      template:
+        metadata:
+          annotations:
+            vault.hashicorp.com/agent-init-first: 'true'
+            vault.hashicorp.com/agent-inject: 'true'
+            vault.hashicorp.com/agent-inject-secret-regcred.yaml: nexus/kv/docker
+            vault.hashicorp.com/agent-inject-template-regcred.yaml: |
+              {{- with secret "nexus/kv/docker" -}}
+              apiVersion: v1
+              kind: Secret
+              data:
+                .dockerconfigjson: {{ .Data.data.auth }}
+              metadata:
+                namespace: backup
+                name: regcred
+              type: kubernetes.io/dockerconfigjson
+              {{- end }}
+            vault.hashicorp.com/agent-pre-populate-only: 'true'
+            vault.hashicorp.com/role: nexus
+        spec:
+          containers:
+            - command:
+                - kubectl
+                - apply
+                - '-f'
+                - /vault/secrets/
+              image: 'bitnami/kubectl:1.17.4'
+              imagePullPolicy: IfNotPresent
+              name: backup-vault-kube-integrator
+              resources: {}
+          imagePullSecrets:
+            - name: regcred
+          restartPolicy: Never
+          serviceAccountName: backup
+  schedule: '* * * * *'
+  successfulJobsHistoryLimit: 1
 ---
 # Source: mysqldump/templates/cron.yaml
 apiVersion: batch/v1beta1
@@ -21,7 +74,7 @@ spec:
         spec:
           containers:
           - name: full-backup
-            image: "ubuntu:21.04"
+            image: "nexus.gwdc.org.au/docker/rdiff-backup:0.1"
             imagePullPolicy: "IfNotPresent"
             command: ["/bin/sh", "/scripts/backup.sh"]
             envFrom:
