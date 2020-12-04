@@ -1,0 +1,51 @@
+---
+# Source: mysqldump/templates/cron.yaml
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: full-backup
+  labels:
+    app: nfs
+spec:
+  schedule: "0 0 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    metadata:
+      labels:
+        app: nfs
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          containers:
+          - name: full-backup
+            image: "ubuntu:21.04"
+            imagePullPolicy: "IfNotPresent"
+            command: ["/bin/sh", "/scripts/backup.sh"]
+            envFrom:
+            - configMapRef:
+                name: "mounts"
+            volumeMounts:
+            - name: nfs1
+              mountPath: /nfs1
+            - name: nfs2
+              mountPath: /nfs2
+            - name: backup-script
+              mountPath: /scripts
+            resources:
+                    {}
+          imagePullSecrets:
+          - name: regcred
+          restartPolicy: Never
+          volumes:
+          - name: nfs1
+            persistentVolumeClaim:
+              claimName: nfs1
+          - name: nfs2
+            persistentVolumeClaim:
+              claimName: nfs2
+          - name: backup-script
+            configMap:
+              name: backup
