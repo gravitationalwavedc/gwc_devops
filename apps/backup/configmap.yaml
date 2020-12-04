@@ -8,13 +8,13 @@ metadata:
     app: backup
 data:
   backup.sh: |-
-  #!/bin/bash
-  if [[ -z "$SOURCE" ] && [ -z "$BACKUP" ]]
-  then
-    # TEST COMMANDS
-    df -h $SOURCE;
-    df -h $BACKUP;
-    # cp -vrfp $SOURCE $BACKUP;
-  else
-    echo "ENV vars SOURCE or BACKUP are not initialised";
-  fi
+    #!/bin/bash
+    if [[ -z "$SOURCE" ] && [ -z "$BACKUP" ]]
+    then
+      # TEST COMMANDS
+      df -h $SOURCE;
+      df -h $BACKUP;
+      # cp -vrfp $SOURCE $BACKUP;
+    else
+      echo "ENV vars SOURCE or BACKUP are not initialised";
+    fi
