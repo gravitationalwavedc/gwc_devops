@@ -1,5 +1,4 @@
 ---
-# Source: mysqldump/templates/configmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -18,3 +17,13 @@ data:
     else
       echo "ENV vars SOURCE or BACKUP are not initialised";
     fi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mounts
+  labels:
+    app: backup
+data:
+  SOURCE: /nfs1
+  BACKUP: /nfs2
