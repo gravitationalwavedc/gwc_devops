@@ -74,7 +74,7 @@ spec:
         spec:
           containers:
           - name: full-backup
-            image: "nexus.gwdc.org.au/docker/rdiff-backup:0.1"
+            image: "nexus.gwdc.org.au/docker/rdiff-backup:0.2"
             imagePullPolicy: "IfNotPresent"
             command: ["/bin/sh", "/scripts/backup.sh"]
             envFrom:
