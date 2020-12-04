@@ -10,7 +10,7 @@ spec:
     storage: 1000Gi
   claimRef:
      namespace: backup
-     name: nfs
+     name: nfs1
   accessModes:
     - ReadWriteOnce
   nfs:
