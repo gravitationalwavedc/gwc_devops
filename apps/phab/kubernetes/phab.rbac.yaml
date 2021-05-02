@@ -1,0 +1,26 @@
+---
+# This role is used to allow sidecar syncing of credentials
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: secrets-integrator-jenkins
+  namespace: phabricator
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get","list","create", "delete", "deletecollection", "patch", "update"]
+---
+# Source: phabricator/rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: secrets-integrator-phabricator
+  namespace: phabricator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: secrets-integrator-phabricator
+subjects:
+- kind: ServiceAccount
+  name: phabricator
+  namespace: phabricator
