@@ -4,6 +4,24 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
+  name: secrets-integrator-jenkins
+  namespace: jenkins
+  labels:
+    "app.kubernetes.io/name": 'jenkins'
+    "helm.sh/chart": "jenkins-2.1.0"
+    "app.kubernetes.io/managed-by": "Helm"
+    "app.kubernetes.io/instance": "stable-jenkins-2-1-0"
+    "app.kubernetes.io/component": "jenkins-master"
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["create", "delete", "deletecollection", "patch", "update"]
+---
+# Source: jenkins/templates/rbac.yaml
+# This role is used to allow Jenkins scheduling of agents via Kubernetes plugin.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
   name: stable-jenkins-2-1-0-schedule-agents
   namespace: jenkins
   labels:
@@ -17,7 +35,7 @@ rules:
   resources: ["pods", "pods/exec", "pods/log", "persistentvolumeclaims", "events"]
   verbs: ["get", "list", "watch"]
 - apiGroups: [""]
-  resources: ["pods", "pods/exec", "persistentvolumeclaims","secrets"]
+  resources: ["pods", "pods/exec", "persistentvolumeclaims"]
   verbs: ["create", "delete", "deletecollection", "patch", "update"]
 ---
 # Source: jenkins/templates/rbac.yaml
@@ -78,6 +96,28 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: stable-jenkins-2-1-0-casc-reload
+subjects:
+- kind: ServiceAccount
+  name: stable-jenkins-2-1-0
+  namespace: jenkins
+
+---
+# Source: jenkins/templates/rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: secrets-integrator-jenkins
+  namespace: jenkins
+  labels:
+    "app.kubernetes.io/name": 'jenkins'
+    "helm.sh/chart": "jenkins-2.1.0"
+    "app.kubernetes.io/managed-by": "Helm"
+    "app.kubernetes.io/instance": "stable-jenkins-2-1-0"
+    "app.kubernetes.io/component": "jenkins-master"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: secrets-integrator-jenkins
 subjects:
 - kind: ServiceAccount
   name: stable-jenkins-2-1-0
