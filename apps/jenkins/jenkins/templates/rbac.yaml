@@ -15,7 +15,7 @@ metadata:
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
-  verbs: ["create", "delete", "deletecollection", "patch", "update"]
+  verbs: ["get","list","create", "delete", "deletecollection", "patch", "update"]
 ---
 # Source: jenkins/templates/rbac.yaml
 # This role is used to allow Jenkins scheduling of agents via Kubernetes plugin.
