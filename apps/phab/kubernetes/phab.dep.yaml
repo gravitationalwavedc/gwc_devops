@@ -51,8 +51,8 @@ spec:
               path: /auth/
               port: http
             initialDelaySeconds: 180
-            timeoutSeconds: 5   
-          # livenessProbe:            
+            timeoutSeconds: 5
+          # livenessProbe:
           #   exec:
           #     command:
           #       - "/opt/bitnami/phabricator/bin/worker"
