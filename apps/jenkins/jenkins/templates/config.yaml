@@ -31,4 +31,4 @@ data:
     git:4.2.2
     github-oauth:0.33
     matrix-auth:2.6.4
-    configuration-as-code:1.41
+    configuration-as-code:1.50
