@@ -13,7 +13,7 @@ data:
       echo "ENV vars SOURCE or BACKUP are not initialised";
     else
       # rdiff-backup
-      rdiff-backup --print-statistics $SOURCE $BACKUP;
+      rdiff-backup --print-statistics --force --exclude ${SOURCE}/gwdc/vault/data/sys/expire --exclude ${SOURCE}/gwdc/vault/data/sys/token $SOURCE $BACKUP;
       df -h $SOURCE;
       df -h $BACKUP;
     fi
