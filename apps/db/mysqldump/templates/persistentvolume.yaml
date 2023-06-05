@@ -27,4 +27,4 @@ spec:
     - ReadWriteOnce
   nfs:
     path: /mnt/onsite/operations/db/mysql
-    server: nfs2.private.loc
+    server: 10.8.41.13
