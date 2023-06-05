@@ -14,21 +14,21 @@ spec:
       annotations:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/agent-init-first: "true"
-        vault.hashicorp.com/agent-inject-secret-root.tf: "db/kv/mysql/deployment"
+        vault.hashicorp.com/agent-inject-secret-root.tf: "kv/db/mysql/deployment"
         vault.hashicorp.com/agent-inject-template-root.tf: |
-          {{- with secret "db/kv/mysql/deployment" -}}
+          {{- with secret "kv/db/mysql/deployment" -}}
           # Configure the MySQL provider
           provider "mysql" {
             endpoint = "mysql.db.svc.cluster.local:3306"
             username = "root"
-            password = "{{ .Data.data.MYSQL_ROOT_PASSWORD }}"
+            password = "{{ .Data.MYSQL_ROOT_PASSWORD }}"
           }
           {{- end }}
-        vault.hashicorp.com/agent-inject-secret-accounts.tf: "db/kv/mysql/accounts"
+        vault.hashicorp.com/agent-inject-secret-accounts.tf: "kv/db/mysql/accounts"
         vault.hashicorp.com/agent-inject-template-accounts.tf: |
-          {{- with secret "db/kv/mysql/accounts" -}}
+          {{- with secret "kv/db/mysql/accounts" -}}
           # DECLARE AND INITIALISE DB APPLICATION ACCOUNTS
-          {{ range $k, $v := .Data.data }}
+          {{ range $k, $v := .Data }}
           #----------------------------------------------------------
           # Create a User
           resource "mysql_user" "user_{{ $k }}" {
@@ -81,8 +81,8 @@ spec:
           exec:
             command:
             - /bin/sh 
-            - -c 
-            - "cp /vault/secrets/* /mnt/secrets/ && cd /mnt/secrets/ && terraform init && terraform apply -auto-approve"
+            # - -c 
+            # - "cp /vault/secrets/* /mnt/secrets/ && cd /mnt/secrets/ && terraform init && terraform apply -auto-approve"
         resources:
           {}
         tty: true
