@@ -15,9 +15,9 @@ spec:
       annotations:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/agent-init-first: "true"
-        vault.hashicorp.com/agent-inject-secret-env: "gwcloud/kv/common"
-        vault.hashicorp.com/agent-inject-template-env: |
-          {{- with secret "gwcloud/kv/common" -}}
+        vault.hashicorp.com/agent-inject-secret-common.yaml: "kv/gwcloud/common"
+        vault.hashicorp.com/agent-inject-template-common.yaml: |
+          {{- with secret "kv/gwcloud/common" -}}
           ---
           apiVersion: v1
           kind: Secret
@@ -25,12 +25,12 @@ spec:
             name: common
           type: Opaque
           stringData:
-            {{ range $k, $v := .Data.data }}
+            {{ range $k, $v := .Data }}
             {{ $k }}: {{ $v }}
             {{ end }}
           ...
           {{- end }}
-        vault.hashicorp.com/role: "gwcloud"
+        vault.hashicorp.com/role: "common"
       labels:
         app: vault-kube-integrator
     spec:
@@ -48,18 +48,8 @@ spec:
             - kubectl
             - apply 
             - -f
-            - /vault/secrets/env
+            - /vault/secrets
           initialDelaySeconds: 5
           periodSeconds: 5
         tty: true
-        volumeMounts:
-          - mountPath: /.kube
-            name: secrets
-      nodeSelector:
-        dedicated: master
-      volumes:
-        - name: secrets
-          hostPath:
-            path: /home/ubuntu/.kube
-            type: Directory
-...
+        resources: {}

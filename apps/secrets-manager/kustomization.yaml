@@ -1,6 +1,6 @@
 resources:
 - sa.yaml
-- gwcloud-auth.yaml
 - common.yaml
-- jobserver.yaml
-- bilby.yaml
+# - gwcloud-auth.yaml
+# - jobserver.yaml
+# - bilby.yaml
