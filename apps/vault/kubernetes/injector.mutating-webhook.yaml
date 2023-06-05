@@ -9,7 +9,8 @@ metadata:
     app.kubernetes.io/instance: may0620
     app.kubernetes.io/managed-by: Helm
 webhooks:
-  - name: vault.hashicorp.com
+  - sideEffects: None
+    name: vault.hashicorp.com
     clientConfig:
       service:
         name: may0620-vault-agent-injector-svc

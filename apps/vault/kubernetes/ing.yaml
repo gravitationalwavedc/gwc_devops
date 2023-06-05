@@ -13,7 +13,8 @@ spec:
   - host: vault.gwdc.org.au
     http:
       paths:
-      - path: /
+      - pathType: Prefix
+        path: /
         backend:
           serviceName: may0620-vault
           servicePort: 8200
