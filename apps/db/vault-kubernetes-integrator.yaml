@@ -39,9 +39,9 @@ spec:
                 }
               }
               {{- end }}
-            vault.hashicorp.com/agent-inject-secret-regcred.yaml: "nexus/kv/docker"
+            vault.hashicorp.com/agent-inject-secret-regcred.yaml: "kv/nexus/docker"
             vault.hashicorp.com/agent-inject-template-regcred.yaml: |
-              {{- with secret "nexus/kv/docker" -}}
+              {{- with secret "kv/nexus/docker" -}}
               apiVersion: v1
               kind: Secret
               data:
