@@ -52,7 +52,7 @@ spec:
               type: kubernetes.io/dockerconfigjson
               {{- end }}
             vault.hashicorp.com/agent-pre-populate-only: 'true'
-            vault.hashicorp.com/role: "db"
+            vault.hashicorp.com/role: "mysql"
           labels:
             app: vault-kube-integrator
         spec:
